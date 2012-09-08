@@ -21,6 +21,8 @@
 		9BC5387515FBBDCC003A3BEA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5385315FBBDCB003A3BEA /* Foundation.framework */; };
 		9BC5387D15FBBDCC003A3BEA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9BC5387B15FBBDCC003A3BEA /* InfoPlist.strings */; };
 		9BC5388015FBBDCC003A3BEA /* XFDLReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5387F15FBBDCC003A3BEA /* XFDLReaderTests.m */; };
+		9BC5388E15FBD53B003A3BEA /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5388B15FBD53B003A3BEA /* NSData+Base64.m */; };
+		9BC5388F15FBD53B003A3BEA /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5388D15FBD53B003A3BEA /* NSString+Base64.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,10 @@
 		9BC5387C15FBBDCC003A3BEA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9BC5387E15FBBDCC003A3BEA /* XFDLReaderTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XFDLReaderTests.h; sourceTree = "<group>"; };
 		9BC5387F15FBBDCC003A3BEA /* XFDLReaderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XFDLReaderTests.m; sourceTree = "<group>"; };
+		9BC5388A15FBD53B003A3BEA /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		9BC5388B15FBD53B003A3BEA /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		9BC5388C15FBD53B003A3BEA /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
+		9BC5388D15FBD53B003A3BEA /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +119,7 @@
 		9BC5385715FBBDCB003A3BEA /* XFDLReader */ = {
 			isa = PBXGroup;
 			children = (
+				9BC5388915FBD53B003A3BEA /* Base64 */,
 				9BC5386015FBBDCB003A3BEA /* AppDelegate.h */,
 				9BC5386115FBBDCB003A3BEA /* AppDelegate.m */,
 				9BC5386315FBBDCB003A3BEA /* MainStoryboard_iPhone.storyboard */,
@@ -152,6 +159,17 @@
 				9BC5387B15FBBDCC003A3BEA /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9BC5388915FBD53B003A3BEA /* Base64 */ = {
+			isa = PBXGroup;
+			children = (
+				9BC5388A15FBD53B003A3BEA /* NSData+Base64.h */,
+				9BC5388B15FBD53B003A3BEA /* NSData+Base64.m */,
+				9BC5388C15FBD53B003A3BEA /* NSString+Base64.h */,
+				9BC5388D15FBD53B003A3BEA /* NSString+Base64.m */,
+			);
+			path = Base64;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,6 +283,8 @@
 				9BC5385E15FBBDCB003A3BEA /* main.m in Sources */,
 				9BC5386215FBBDCB003A3BEA /* AppDelegate.m in Sources */,
 				9BC5386B15FBBDCC003A3BEA /* ViewController.m in Sources */,
+				9BC5388E15FBD53B003A3BEA /* NSData+Base64.m in Sources */,
+				9BC5388F15FBD53B003A3BEA /* NSString+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
