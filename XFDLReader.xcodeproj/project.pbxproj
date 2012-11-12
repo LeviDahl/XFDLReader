@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B106A6D16485727000918F6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B106A6C16485727000918F6 /* Default-568h@2x.png */; };
+		9B106A7416486239000918F6 /* RXMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B106A7316486239000918F6 /* RXMLElement.m */; };
+		9B106A76164863D6000918F6 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B106A75164863D6000918F6 /* libxml2.dylib */; };
+		9B106A781648643E000918F6 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B106A771648643E000918F6 /* libxml2.2.dylib */; };
+		9B106ADF164998F4000918F6 /* a6.xfdl in Resources */ = {isa = PBXBuildFile; fileRef = 9B106ADE164998F4000918F6 /* a6.xfdl */; };
+		9B106AE116499CA6000918F6 /* a2_1.xfdl in Resources */ = {isa = PBXBuildFile; fileRef = 9B106AE016499CA6000918F6 /* a2_1.xfdl */; };
+		9B106AE31649AA7B000918F6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B106AE21649AA7A000918F6 /* QuartzCore.framework */; };
+		9B106AF11649B509000918F6 /* DrawLines.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B106AF01649B509000918F6 /* DrawLines.m */; };
+		9B514434164DD5D70049DADD /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B514433164DD5D70049DADD /* MainStoryboard_iPad.storyboard */; };
 		9BC5385215FBBDCB003A3BEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5385115FBBDCB003A3BEA /* UIKit.framework */; };
 		9BC5385415FBBDCB003A3BEA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5385315FBBDCB003A3BEA /* Foundation.framework */; };
 		9BC5385615FBBDCB003A3BEA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5385515FBBDCB003A3BEA /* CoreGraphics.framework */; };
@@ -14,7 +23,6 @@
 		9BC5385E15FBBDCB003A3BEA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5385D15FBBDCB003A3BEA /* main.m */; };
 		9BC5386215FBBDCB003A3BEA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5386115FBBDCB003A3BEA /* AppDelegate.m */; };
 		9BC5386515FBBDCB003A3BEA /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BC5386315FBBDCB003A3BEA /* MainStoryboard_iPhone.storyboard */; };
-		9BC5386815FBBDCC003A3BEA /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BC5386615FBBDCC003A3BEA /* MainStoryboard_iPad.storyboard */; };
 		9BC5386B15FBBDCC003A3BEA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5386A15FBBDCC003A3BEA /* ViewController.m */; };
 		9BC5387315FBBDCC003A3BEA /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5387215FBBDCC003A3BEA /* SenTestingKit.framework */; };
 		9BC5387415FBBDCC003A3BEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5385115FBBDCB003A3BEA /* UIKit.framework */; };
@@ -23,6 +31,9 @@
 		9BC5388015FBBDCC003A3BEA /* XFDLReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5387F15FBBDCC003A3BEA /* XFDLReaderTests.m */; };
 		9BC5388E15FBD53B003A3BEA /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5388B15FBD53B003A3BEA /* NSData+Base64.m */; };
 		9BC5388F15FBD53B003A3BEA /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5388D15FBD53B003A3BEA /* NSString+Base64.m */; };
+		9BC5389115FBD727003A3BEA /* file.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9BC5389015FBD727003A3BEA /* file.txt */; };
+		9BC5389515FBE0AD003A3BEA /* NSData+GZIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5389415FBE0AD003A3BEA /* NSData+GZIP.m */; };
+		9BC5389715FBE123003A3BEA /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5389615FBE123003A3BEA /* libz.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +47,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9B106A6C16485727000918F6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		9B106A7216486239000918F6 /* RXMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RXMLElement.h; sourceTree = "<group>"; };
+		9B106A7316486239000918F6 /* RXMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXMLElement.m; sourceTree = "<group>"; };
+		9B106A75164863D6000918F6 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		9B106A771648643E000918F6 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		9B106ADE164998F4000918F6 /* a6.xfdl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = a6.xfdl; path = ../../../Downloads/a6.xfdl; sourceTree = "<group>"; };
+		9B106AE016499CA6000918F6 /* a2_1.xfdl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = a2_1.xfdl; path = ../../../Downloads/a2_1.xfdl; sourceTree = "<group>"; };
+		9B106AE21649AA7A000918F6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		9B106AEF1649B509000918F6 /* DrawLines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawLines.h; sourceTree = "<group>"; };
+		9B106AF01649B509000918F6 /* DrawLines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawLines.m; sourceTree = "<group>"; };
+		9B514433164DD5D70049DADD /* MainStoryboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		9BC5384D15FBBDCB003A3BEA /* XFDLReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XFDLReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BC5385115FBBDCB003A3BEA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9BC5385315FBBDCB003A3BEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -47,7 +69,6 @@
 		9BC5386015FBBDCB003A3BEA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9BC5386115FBBDCB003A3BEA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		9BC5386415FBBDCB003A3BEA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
-		9BC5386715FBBDCC003A3BEA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		9BC5386915FBBDCC003A3BEA /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		9BC5386A15FBBDCC003A3BEA /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		9BC5387115FBBDCC003A3BEA /* XFDLReaderTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XFDLReaderTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,6 +81,10 @@
 		9BC5388B15FBD53B003A3BEA /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		9BC5388C15FBD53B003A3BEA /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
 		9BC5388D15FBD53B003A3BEA /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
+		9BC5389015FBD727003A3BEA /* file.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = file.txt; sourceTree = "<group>"; };
+		9BC5389315FBE0AD003A3BEA /* NSData+GZIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+GZIP.h"; sourceTree = "<group>"; };
+		9BC5389415FBE0AD003A3BEA /* NSData+GZIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+GZIP.m"; sourceTree = "<group>"; };
+		9BC5389615FBE123003A3BEA /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +92,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B106AE31649AA7B000918F6 /* QuartzCore.framework in Frameworks */,
+				9B106A781648643E000918F6 /* libxml2.2.dylib in Frameworks */,
+				9B106A76164863D6000918F6 /* libxml2.dylib in Frameworks */,
+				9BC5389715FBE123003A3BEA /* libz.dylib in Frameworks */,
 				9BC5385215FBBDCB003A3BEA /* UIKit.framework in Frameworks */,
 				9BC5385415FBBDCB003A3BEA /* Foundation.framework in Frameworks */,
 				9BC5385615FBBDCB003A3BEA /* CoreGraphics.framework in Frameworks */,
@@ -86,9 +115,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9B106A7116486239000918F6 /* RaptureXML */ = {
+			isa = PBXGroup;
+			children = (
+				9B106A7216486239000918F6 /* RXMLElement.h */,
+				9B106A7316486239000918F6 /* RXMLElement.m */,
+			);
+			path = RaptureXML;
+			sourceTree = "<group>";
+		};
 		9BC5384215FBBDCB003A3BEA = {
 			isa = PBXGroup;
 			children = (
+				9B106AE21649AA7A000918F6 /* QuartzCore.framework */,
+				9B106A771648643E000918F6 /* libxml2.2.dylib */,
+				9B106A6C16485727000918F6 /* Default-568h@2x.png */,
 				9BC5385715FBBDCB003A3BEA /* XFDLReader */,
 				9BC5387815FBBDCC003A3BEA /* XFDLReaderTests */,
 				9BC5385015FBBDCB003A3BEA /* Frameworks */,
@@ -108,6 +149,8 @@
 		9BC5385015FBBDCB003A3BEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9B106A75164863D6000918F6 /* libxml2.dylib */,
+				9BC5389615FBE123003A3BEA /* libz.dylib */,
 				9BC5385115FBBDCB003A3BEA /* UIKit.framework */,
 				9BC5385315FBBDCB003A3BEA /* Foundation.framework */,
 				9BC5385515FBBDCB003A3BEA /* CoreGraphics.framework */,
@@ -119,13 +162,17 @@
 		9BC5385715FBBDCB003A3BEA /* XFDLReader */ = {
 			isa = PBXGroup;
 			children = (
+				9B106A7116486239000918F6 /* RaptureXML */,
+				9BC5389215FBE0AD003A3BEA /* GZIP */,
 				9BC5388915FBD53B003A3BEA /* Base64 */,
 				9BC5386015FBBDCB003A3BEA /* AppDelegate.h */,
 				9BC5386115FBBDCB003A3BEA /* AppDelegate.m */,
 				9BC5386315FBBDCB003A3BEA /* MainStoryboard_iPhone.storyboard */,
-				9BC5386615FBBDCC003A3BEA /* MainStoryboard_iPad.storyboard */,
+				9B514433164DD5D70049DADD /* MainStoryboard_iPad.storyboard */,
 				9BC5386915FBBDCC003A3BEA /* ViewController.h */,
 				9BC5386A15FBBDCC003A3BEA /* ViewController.m */,
+				9B106AEF1649B509000918F6 /* DrawLines.h */,
+				9B106AF01649B509000918F6 /* DrawLines.m */,
 				9BC5385815FBBDCB003A3BEA /* Supporting Files */,
 			);
 			path = XFDLReader;
@@ -134,6 +181,9 @@
 		9BC5385815FBBDCB003A3BEA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9B106AE016499CA6000918F6 /* a2_1.xfdl */,
+				9B106ADE164998F4000918F6 /* a6.xfdl */,
+				9BC5389015FBD727003A3BEA /* file.txt */,
 				9BC5385915FBBDCB003A3BEA /* XFDLReader-Info.plist */,
 				9BC5385A15FBBDCB003A3BEA /* InfoPlist.strings */,
 				9BC5385D15FBBDCB003A3BEA /* main.m */,
@@ -170,6 +220,15 @@
 				9BC5388D15FBD53B003A3BEA /* NSString+Base64.m */,
 			);
 			path = Base64;
+			sourceTree = "<group>";
+		};
+		9BC5389215FBE0AD003A3BEA /* GZIP */ = {
+			isa = PBXGroup;
+			children = (
+				9BC5389315FBE0AD003A3BEA /* NSData+GZIP.h */,
+				9BC5389415FBE0AD003A3BEA /* NSData+GZIP.m */,
+			);
+			path = GZIP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,7 +304,11 @@
 			files = (
 				9BC5385C15FBBDCB003A3BEA /* InfoPlist.strings in Resources */,
 				9BC5386515FBBDCB003A3BEA /* MainStoryboard_iPhone.storyboard in Resources */,
-				9BC5386815FBBDCC003A3BEA /* MainStoryboard_iPad.storyboard in Resources */,
+				9BC5389115FBD727003A3BEA /* file.txt in Resources */,
+				9B106A6D16485727000918F6 /* Default-568h@2x.png in Resources */,
+				9B106ADF164998F4000918F6 /* a6.xfdl in Resources */,
+				9B106AE116499CA6000918F6 /* a2_1.xfdl in Resources */,
+				9B514434164DD5D70049DADD /* MainStoryboard_iPad.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +348,9 @@
 				9BC5386B15FBBDCC003A3BEA /* ViewController.m in Sources */,
 				9BC5388E15FBD53B003A3BEA /* NSData+Base64.m in Sources */,
 				9BC5388F15FBD53B003A3BEA /* NSString+Base64.m in Sources */,
+				9BC5389515FBE0AD003A3BEA /* NSData+GZIP.m in Sources */,
+				9B106A7416486239000918F6 /* RXMLElement.m in Sources */,
+				9B106AF11649B509000918F6 /* DrawLines.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,14 +387,6 @@
 				9BC5386415FBBDCB003A3BEA /* en */,
 			);
 			name = MainStoryboard_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		9BC5386615FBBDCC003A3BEA /* MainStoryboard_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9BC5386715FBBDCC003A3BEA /* en */,
-			);
-			name = MainStoryboard_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		9BC5387B15FBBDCC003A3BEA /* InfoPlist.strings */ = {
@@ -398,8 +456,11 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XFDLReader/XFDLReader-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SDK_DIR)\"/usr/include/libxml2";
 				INFOPLIST_FILE = "XFDLReader/XFDLReader-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -409,8 +470,11 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XFDLReader/XFDLReader-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"$(SDK_DIR)\"/usr/include/libxml2";
 				INFOPLIST_FILE = "XFDLReader/XFDLReader-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -468,6 +532,7 @@
 				9BC5388515FBBDCC003A3BEA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9BC5388615FBBDCC003A3BEA /* Build configuration list for PBXNativeTarget "XFDLReaderTests" */ = {
 			isa = XCConfigurationList;
@@ -476,6 +541,7 @@
 				9BC5388815FBBDCC003A3BEA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

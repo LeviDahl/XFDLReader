@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
-
+{
+    NSMutableArray *linedata;
+}
 @property (strong, nonatomic) UIWindow *window;
-
+@property (nonatomic, retain) NSMutableArray *linedata;
 @end
