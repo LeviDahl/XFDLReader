@@ -484,6 +484,7 @@ if ([appDelegate.pagename length]== 0)
         self.navigationItem.rightBarButtonItem  = nil;
     }
 }
+
 - (void)keyboardWillShow:(UITextField *)textField {
     [scrollView setScrollEnabled:NO];
    

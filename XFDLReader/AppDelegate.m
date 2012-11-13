@@ -13,11 +13,24 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-        pagename = [[NSString alloc] init];
+  
+    pagename = [[NSString alloc] init];
     return YES;
 
 }
-							
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    NSLog(@"Open URL:\t%@\n"
+          "From source:\t%@\n"
+          "With annotation:%@",
+          url, sourceApplication, annotation);
+ 
+    NSString *filepath = [url lastPathComponent];
+    NSLog(@"filename = %@", filepath);
+    return YES;
+}
+
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
