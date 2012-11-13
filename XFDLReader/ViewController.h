@@ -11,8 +11,10 @@
 #import "NSString+Base64.h"
 #import "NSData+GZIP.h"
 
-@interface ViewController : UIViewController <UIScrollViewDelegate, UITextFieldDelegate>
-
+@interface ViewController : UIViewController <UIScrollViewDelegate, UITextFieldDelegate, UIAlertViewDelegate>
+{
+    UIDocumentInteractionController *documentController;
+}
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, retain) NSMutableArray *tempdata;
@@ -20,4 +22,6 @@
 @property (nonatomic, retain) IBOutlet UIView *mainview;
 @property (nonatomic, retain) NSMutableArray *fielddata;
 @property (nonatomic, retain) UIToolbar *toolbar;
+@property (nonatomic, retain) NSMutableArray *pagesarray;
+-(void)nextpage;
 @end

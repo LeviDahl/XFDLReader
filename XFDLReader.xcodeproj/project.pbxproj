@@ -11,8 +11,6 @@
 		9B106A7416486239000918F6 /* RXMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B106A7316486239000918F6 /* RXMLElement.m */; };
 		9B106A76164863D6000918F6 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B106A75164863D6000918F6 /* libxml2.dylib */; };
 		9B106A781648643E000918F6 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B106A771648643E000918F6 /* libxml2.2.dylib */; };
-		9B106ADF164998F4000918F6 /* a6.xfdl in Resources */ = {isa = PBXBuildFile; fileRef = 9B106ADE164998F4000918F6 /* a6.xfdl */; };
-		9B106AE116499CA6000918F6 /* a2_1.xfdl in Resources */ = {isa = PBXBuildFile; fileRef = 9B106AE016499CA6000918F6 /* a2_1.xfdl */; };
 		9B106AE31649AA7B000918F6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B106AE21649AA7A000918F6 /* QuartzCore.framework */; };
 		9B106AF11649B509000918F6 /* DrawLines.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B106AF01649B509000918F6 /* DrawLines.m */; };
 		9B514434164DD5D70049DADD /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B514433164DD5D70049DADD /* MainStoryboard_iPad.storyboard */; };
@@ -31,7 +29,6 @@
 		9BC5388015FBBDCC003A3BEA /* XFDLReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5387F15FBBDCC003A3BEA /* XFDLReaderTests.m */; };
 		9BC5388E15FBD53B003A3BEA /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5388B15FBD53B003A3BEA /* NSData+Base64.m */; };
 		9BC5388F15FBD53B003A3BEA /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5388D15FBD53B003A3BEA /* NSString+Base64.m */; };
-		9BC5389115FBD727003A3BEA /* file.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9BC5389015FBD727003A3BEA /* file.txt */; };
 		9BC5389515FBE0AD003A3BEA /* NSData+GZIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5389415FBE0AD003A3BEA /* NSData+GZIP.m */; };
 		9BC5389715FBE123003A3BEA /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5389615FBE123003A3BEA /* libz.dylib */; };
 /* End PBXBuildFile section */
@@ -52,8 +49,6 @@
 		9B106A7316486239000918F6 /* RXMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RXMLElement.m; sourceTree = "<group>"; };
 		9B106A75164863D6000918F6 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		9B106A771648643E000918F6 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
-		9B106ADE164998F4000918F6 /* a6.xfdl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = a6.xfdl; path = ../../../Downloads/a6.xfdl; sourceTree = "<group>"; };
-		9B106AE016499CA6000918F6 /* a2_1.xfdl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = a2_1.xfdl; path = ../../../Downloads/a2_1.xfdl; sourceTree = "<group>"; };
 		9B106AE21649AA7A000918F6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9B106AEF1649B509000918F6 /* DrawLines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawLines.h; sourceTree = "<group>"; };
 		9B106AF01649B509000918F6 /* DrawLines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawLines.m; sourceTree = "<group>"; };
@@ -81,7 +76,6 @@
 		9BC5388B15FBD53B003A3BEA /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		9BC5388C15FBD53B003A3BEA /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
 		9BC5388D15FBD53B003A3BEA /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
-		9BC5389015FBD727003A3BEA /* file.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = file.txt; sourceTree = "<group>"; };
 		9BC5389315FBE0AD003A3BEA /* NSData+GZIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+GZIP.h"; sourceTree = "<group>"; };
 		9BC5389415FBE0AD003A3BEA /* NSData+GZIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+GZIP.m"; sourceTree = "<group>"; };
 		9BC5389615FBE123003A3BEA /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -181,9 +175,6 @@
 		9BC5385815FBBDCB003A3BEA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9B106AE016499CA6000918F6 /* a2_1.xfdl */,
-				9B106ADE164998F4000918F6 /* a6.xfdl */,
-				9BC5389015FBD727003A3BEA /* file.txt */,
 				9BC5385915FBBDCB003A3BEA /* XFDLReader-Info.plist */,
 				9BC5385A15FBBDCB003A3BEA /* InfoPlist.strings */,
 				9BC5385D15FBBDCB003A3BEA /* main.m */,
@@ -304,10 +295,7 @@
 			files = (
 				9BC5385C15FBBDCB003A3BEA /* InfoPlist.strings in Resources */,
 				9BC5386515FBBDCB003A3BEA /* MainStoryboard_iPhone.storyboard in Resources */,
-				9BC5389115FBD727003A3BEA /* file.txt in Resources */,
 				9B106A6D16485727000918F6 /* Default-568h@2x.png in Resources */,
-				9B106ADF164998F4000918F6 /* a6.xfdl in Resources */,
-				9B106AE116499CA6000918F6 /* a2_1.xfdl in Resources */,
 				9B514434164DD5D70049DADD /* MainStoryboard_iPad.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -36,20 +36,29 @@
    // CGColorRef color = CGColorCreate(colorspace, components);
     
     //CGContextSetStrokeColorWithColor(context, color);
-    for(int i = 0; i < [appDelegate.linedata count]; i++){
+  for(int i = 0; i < [appDelegate.linedata count]; i++){
+       if ([[appDelegate.linedata objectAtIndex:i] count] > 4)
+       {
       x =  [[[appDelegate.linedata objectAtIndex:i] objectAtIndex:1] intValue];
       y = [[[appDelegate.linedata objectAtIndex:i] objectAtIndex:2] intValue];
        pointx = [[[appDelegate.linedata objectAtIndex:i] objectAtIndex:4] intValue];
         pointy = [[[appDelegate.linedata objectAtIndex:i] objectAtIndex:5] intValue];
-      
+       }
+       else{
+           x =  [[[appDelegate.linedata objectAtIndex:i] objectAtIndex:0] intValue];
+           y = [[[appDelegate.linedata objectAtIndex:i] objectAtIndex:1] intValue];
+           pointx = [[[appDelegate.linedata objectAtIndex:i] objectAtIndex:2] intValue];
+           pointy = [[[appDelegate.linedata objectAtIndex:i] objectAtIndex:3] intValue];
+
+       }
        
         
         CGContextMoveToPoint(context, x /4*3, y /4*3);
-        if (pointy <= 3)
+        if (pointy <= 5)
         {
         CGContextAddLineToPoint(context,(x /4*3)+ (pointx /4*3), y /4*3);
         }
-        else if (pointx <= 3)
+        else if (pointx <= 5)
         {
              CGContextAddLineToPoint(context,x /4*3, (y /4*3)+ (pointy /4*3));
         }

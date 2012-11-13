@@ -12,12 +12,14 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeName</key>
-			<string>My Format</string>
+			<string>XFDL</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.levidahlstrom.xfdl</string>
+				<string>public.archive</string>
+				<string>public.data</string>
+				<string>public.xml</string>
 			</array>
 		</dict>
 	</array>
@@ -39,7 +41,7 @@
 	<string>1.0</string>
 	<key>LSItemContentTypes</key>
 	<array>
-		<string>com.levidahlstrom.xfdl</string>
+		<string>public.xfdl</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -64,7 +66,6 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-		<string>XFDL Format</string>
 	</array>
 </dict>
 </plist>

@@ -9,13 +9,13 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 @implementation AppDelegate
-@synthesize linedata, window;
+@synthesize linedata, window, pagename;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  
-   
+        pagename = [[NSString alloc] init];
     return YES;
+
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
