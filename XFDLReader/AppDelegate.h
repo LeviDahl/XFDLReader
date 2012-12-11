@@ -16,4 +16,5 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, retain) NSMutableArray *linedata;
 @property (nonatomic, retain) NSString *pagename;
+
 @end

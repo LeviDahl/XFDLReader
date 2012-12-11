@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainTableView : UIViewController
+@interface MainTableView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 @property (nonatomic, retain) IBOutlet UITableView *myTableView;
+@property (nonatomic, retain) NSArray *paths;
+@property (nonatomic, retain) NSArray *filelist;
+@property (nonatomic, retain) NSURL *fileURL;
+- (void)handleOpenURL:(NSURL *)url;
+-(IBAction)pushSupport:(id)sender;
+-(IBAction)pushAPD:(id)sender;
 @end

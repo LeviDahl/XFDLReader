@@ -7,24 +7,42 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "MainTableView.h"
 @implementation AppDelegate
 @synthesize linedata, window, pagename;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+{  NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"XFDL"];
+	NSError *error;
+	if (![fileManager fileExistsAtPath:path])	//Does directory already exist?
+	{
+		if (![[NSFileManager defaultManager] createDirectoryAtPath:path
+									   withIntermediateDirectories:NO
+														attributes:nil
+															 error:&error])
+		{
+			NSLog(@"Main Directory Already Exists, No Action = %@", error);
+		}
+	}
   
+    path = [path stringByAppendingPathComponent:@"a4.xfdl"];
+    if(![fileManager fileExistsAtPath:path])
+    {
+        NSData *data = [NSData dataWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/a4.xfdl"]];
+        [data writeToFile:path atomically:YES];
+    }
     pagename = [[NSString alloc] init];
     return YES;
 
 }
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    NSLog(@"Open URL:\t%@\n"
-          "From source:\t%@\n"
-          "With annotation:%@",
-          url, sourceApplication, annotation);
- 
+    MainTableView *table = [[MainTableView alloc] init];
+    if (url != nil && [url isFileURL]) {
+        [table handleOpenURL:url];
+    }
     NSString *filepath = [url lastPathComponent];
     NSLog(@"filename = %@", filepath);
     return YES;
