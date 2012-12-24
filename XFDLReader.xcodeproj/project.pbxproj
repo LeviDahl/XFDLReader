@@ -14,6 +14,7 @@
 		9B106AE31649AA7B000918F6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B106AE21649AA7A000918F6 /* QuartzCore.framework */; };
 		9B106AF11649B509000918F6 /* DrawLines.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B106AF01649B509000918F6 /* DrawLines.m */; };
 		9B514434164DD5D70049DADD /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B514433164DD5D70049DADD /* MainStoryboard_iPad.storyboard */; };
+		9B78E96216868CCB00BB20C1 /* SupportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78E96116868CCB00BB20C1 /* SupportController.m */; };
 		9B9DF852165C2927002EE1B9 /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B9DF84F165C2927002EE1B9 /* Default-568h@2x~iphone.png */; };
 		9B9DF853165C2927002EE1B9 /* Default@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B9DF850165C2927002EE1B9 /* Default@2x~iphone.png */; };
 		9B9DF854165C2927002EE1B9 /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B9DF851165C2927002EE1B9 /* Default~iphone.png */; };
@@ -67,6 +68,8 @@
 		9B106AEF1649B509000918F6 /* DrawLines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawLines.h; sourceTree = "<group>"; };
 		9B106AF01649B509000918F6 /* DrawLines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawLines.m; sourceTree = "<group>"; };
 		9B514433164DD5D70049DADD /* MainStoryboard_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		9B78E96016868CCB00BB20C1 /* SupportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupportController.h; sourceTree = "<group>"; };
+		9B78E96116868CCB00BB20C1 /* SupportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupportController.m; sourceTree = "<group>"; };
 		9B9DF84F165C2927002EE1B9 /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
 		9B9DF850165C2927002EE1B9 /* Default@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x~iphone.png"; sourceTree = "<group>"; };
 		9B9DF851165C2927002EE1B9 /* Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~iphone.png"; sourceTree = "<group>"; };
@@ -192,6 +195,8 @@
 				9BDE6B331653029F0054FE53 /* MainTableView.m */,
 				9BC5386315FBBDCB003A3BEA /* MainStoryboard_iPhone.storyboard */,
 				9B514433164DD5D70049DADD /* MainStoryboard_iPad.storyboard */,
+				9B78E96016868CCB00BB20C1 /* SupportController.h */,
+				9B78E96116868CCB00BB20C1 /* SupportController.m */,
 				9BC5386915FBBDCC003A3BEA /* ViewController.h */,
 				9BC5386A15FBBDCC003A3BEA /* ViewController.m */,
 				9B106AEF1649B509000918F6 /* DrawLines.h */,
@@ -405,6 +410,7 @@
 				9B106A7416486239000918F6 /* RXMLElement.m in Sources */,
 				9B106AF11649B509000918F6 /* DrawLines.m in Sources */,
 				9BDE6B341653029F0054FE53 /* MainTableView.m in Sources */,
+				9B78E96216868CCB00BB20C1 /* SupportController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

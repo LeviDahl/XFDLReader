@@ -130,10 +130,5 @@ NSString *documentsDirectory;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(IBAction)pushSupport:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.venturacountylife.com/xfdl/"]];
-}
--(IBAction)pushAPD:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.apd.army.mil"]];
-}
+
 @end

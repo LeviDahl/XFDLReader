@@ -15,6 +15,7 @@ BOOL loaded = NO;
     [super viewDidLoad];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     scrollView.delegate = self;
+    [scrollView setPagingEnabled:YES];
     [modalLabel removeFromSuperview];
     [scrollView addSubview:mainview];
     [scrollView setScrollEnabled:YES];
@@ -52,10 +53,12 @@ BOOL loaded = NO;
     NSString *newStr = [myData substringWithRange:NSMakeRange(51, [myData length]-51)];
     NSData *decodedData = [NSData dataWithBase64EncodedString:newStr];
     NSData *test = [decodedData gunzippedData];
-   // NSString *rawXML = [[NSString alloc] initWithData:test encoding:NSASCIIStringEncoding];
-  //  NSLog(@"RAW %@", rawXML);
+    //NSString *rawXML = [[NSString alloc] initWithData:test encoding:NSASCIIStringEncoding];
+    //NSLog(@"RAW %@", rawXML);
        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionPane)];
     self.navigationItem.rightBarButtonItem = doneButton;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardDidHideNotification object:nil];
     RXMLElement *rootXML = [RXMLElement elementFromXMLData:test];
    if ([rootXML child:@"globalpage.global.formid.title"] != nil)
    {
@@ -66,7 +69,14 @@ BOOL loaded = NO;
                NSString *pagenum = [pages attribute:@"sid"];
         if ([pagenum length] >= 5)
             pagenum = [pagenum substringToIndex:5];
-        if ([[pagenum substringToIndex:4] isEqualToString:@"PAGE"])
+        pagenum = [pagenum uppercaseString];
+       
+        if ([pagenum isEqualToString:@"AFFOR"])
+        {
+            pagenum = @"PAGE1";
+        }
+         NSLog(@"pagenum %@", pagenum);
+        if ([[[pagenum substringToIndex:4] uppercaseString] isEqualToString:@"PAGE"])
         {
             [pagesarray addObject:pagenum];
         }
@@ -79,6 +89,7 @@ if ([appDelegate.pagename length]== 0)
         {
             if ([rootXML child:@"globalpage.global.date"] == nil)
             {
+                NSLog(@"6.5Form");
                 if ([[pages child:@"global.vfd_pagesize"].text isEqualToString:@"letter"]) {
                     mainview.frame = CGRectIntegral(CGRectMake(0,0,730,1008));
                 }
@@ -117,7 +128,6 @@ if ([appDelegate.pagename length]== 0)
             if ([[images child:@"mimedata"].text isEqualToString:@""])
             {
                 [imagedata addObject:@"No Mime Data"];
-                
             }
             else
                 
@@ -175,8 +185,16 @@ if ([appDelegate.pagename length]== 0)
                 if ([player child:@"fontinfo"] != nil)
                 {
                     [player iterate:@"fontinfo.ae" usingBlock:^(RXMLElement *fontElement) {
-                        [test addObject:fontElement.text];
-                    }];
+                        if ([fontElement.text isEqualToString:@"Book Antiqua"])
+                        {
+                                [test addObject:@"Arial"];
+                        }
+                        else
+                        {
+                            [test addObject:fontElement.text];
+
+                        }
+                                            }];
                 }
                 else {
                     [test addObject:@"Arial"];
@@ -213,11 +231,12 @@ if ([appDelegate.pagename length]== 0)
                     label.font = [UIFont fontWithName:[[tempdata objectAtIndex:i] objectAtIndex:10] size:[[[tempdata objectAtIndex:i] objectAtIndex:11] floatValue]];
                     label.text = [[tempdata objectAtIndex:i] objectAtIndex:6];
                     label.numberOfLines = 0;
-
+                        if ([[tempdata objectAtIndex:i] count] > 7)
+                        {
                         if ([[[tempdata objectAtIndex:i] objectAtIndex:7] isEqualToString:@"center"])
                         {label.textAlignment = UITextAlignmentCenter;
                         }
-                    
+                        }
                     [mainview addSubview:label];
                     
                 }
@@ -380,7 +399,7 @@ if ([appDelegate.pagename length]== 0)
                 }
                 text.font = [UIFont fontWithName:[[fielddata objectAtIndex:i] objectAtIndex:8] size:[[[fielddata objectAtIndex:i] objectAtIndex:9] floatValue]];
                 CGSize size = [@"A" sizeWithFont:text.font constrainedToSize:CGSizeMake(9999, 9999) lineBreakMode:NSLineBreakByWordWrapping];
-                text.frame =   CGRectIntegral(CGRectMake([[[fielddata objectAtIndex:i] objectAtIndex:1] floatValue] /4 *3, [[[fielddata objectAtIndex:i] objectAtIndex:2] floatValue]/4 *3-1,([[[fielddata objectAtIndex:i] objectAtIndex:6] floatValue] * size.width) /4*3, size.height-2));
+                text.frame =   CGRectIntegral(CGRectMake([[[fielddata objectAtIndex:i] objectAtIndex:1] floatValue] /4 *3, [[[fielddata objectAtIndex:i] objectAtIndex:2] floatValue]/4 *3-1,([[[fielddata objectAtIndex:i] objectAtIndex:6] floatValue] / 1.1) * size.width, size.height * ([[[fielddata objectAtIndex:i] objectAtIndex:7] floatValue]*1.1)));
                 if ([[[fielddata objectAtIndex:i] objectAtIndex:3] isEqualToString:@"center"]) {
                     text.textAlignment = UITextAlignmentCenter;
                 }
@@ -506,27 +525,27 @@ if ([appDelegate.pagename length]== 0)
             }
             else
             {
-                    NSLog(@"orientation %@",[rootXML child:@"globalpage.global.printsettings.dialog.orientation"].text);
+                NSLog(@"7.7Form");
+
                     if ([[rootXML child:@"globalpage.global.printsettings.dialog.orientation"].text isEqualToString:@"portrait"])
                     {
                         mainview.frame = CGRectIntegral(CGRectMake(0,0,730,1008));
-                        NSLog(@"Portrait");
+                       
                     }
                     else if ([[rootXML child:@"globalpage.global.printsettings.dialog.orientation"].text isEqualToString:@"landscape"])
                     {
                          mainview.frame = CGRectIntegral(CGRectMake(0,0,1008,730));
-                        NSLog(@"Landscape");
+                      
                                          }
                     else
                     {
                          mainview.frame = CGRectIntegral(CGRectMake(0,0,730,1008));
-                          NSLog(@"Neither");
+                       
                     }
                     NSArray *bgcolor = [[pages child:@"global.bgcolor"].text componentsSeparatedByString:@","];
                     mainview.backgroundColor = [UIColor colorWithRed:([[bgcolor objectAtIndex:0] floatValue] /255.0) green:([[bgcolor objectAtIndex:0] floatValue] /255.0)blue:([[bgcolor objectAtIndex:0] floatValue] /255.0) alpha:1];
                     scrollView.backgroundColor = mainview.backgroundColor;
-                    NSLog(@"background %@", bgcolor);
-                    [pages iterate:@"data" usingBlock: ^(RXMLElement *images) {
+                   [pages iterate:@"data" usingBlock: ^(RXMLElement *images) {
        if ([images attribute:@"sid"] !=nil)
        {
         [imagedata addObject:[images attribute:@"sid"]];
@@ -551,31 +570,30 @@ if ([appDelegate.pagename length]== 0)
         
         
     }];
-                    [pages iterate:@"label" usingBlock: ^(RXMLElement *player) {
-        NSString *title = [player attribute:@"sid"];
-       NSMutableArray *test = [[NSMutableArray alloc] init];
-        if ([title length] >= 5)
-        title = [title substringToIndex:5];
-              if ([title isEqualToString:@"LABEL"])
-        {
-            [player iterate:@"itemlocation.*" usingBlock:^(RXMLElement *repElement) {
-                NSString *temp = repElement.text;
-                [test addObject:temp];
-            }];
-            if ([player child:@"value"].text != nil)
-            {
-            [test addObject:[player child:@"value"].text];
-            }
-            else
-            {
-                [test addObject:@""];
-            }
-            if ([player child:@"justify"] != nil) {
-                [test addObject:[player child:@"justify"].text];
-            }
-            else
-            {
-                [test addObject:@"left"];
+                   [pages iterate:@"label" usingBlock: ^(RXMLElement *player) {
+                       NSString *title = [player attribute:@"sid"];
+                       NSMutableArray *test = [[NSMutableArray alloc] init];
+                       if ([title length] >= 5)
+                           title = [title substringToIndex:5];
+                            [player iterate:@"itemlocation.*" usingBlock:^(RXMLElement *repElement) {
+                              
+                                NSString *temp = repElement.text;
+                                                                    [test addObject:temp];
+                            }];
+                       if ([player child:@"value"].text != nil)
+                       {
+                           [test addObject:[player child:@"value"].text];
+                       }
+                       else
+                       {
+                           [test addObject:@""];
+                       }
+                       if ([player child:@"justify"] != nil) {
+                           [test addObject:[player child:@"justify"].text];
+                       }
+                       else
+                       {
+                        [test addObject:@"left"];
             }
             if ([player child:@"image"].text != nil)
             {
@@ -594,12 +612,19 @@ if ([appDelegate.pagename length]== 0)
                     [test addObject:fontElement.text];
                 }];
                  }
+            else{
+                [test addObject:@"Arial"];
+                [test addObject:@"8"];
+                [test addObject:@"plain"];
+            }
             
             [tempdata addObject:test];
          
-        }
+        
         }];
                     for(int i = 0; i < [tempdata count]; i++){
+                        if (![[[tempdata objectAtIndex:i] objectAtIndex:0] isEqualToString:@"TOOLBAR"])
+                        {
                         if ([[tempdata objectAtIndex:i ]count] < 7) {
                             if ([[[tempdata objectAtIndex:i] objectAtIndex:8] isEqualToString:@"image"])        {
                                 for(int j = 0; j < [imagedata count]; j++){
@@ -619,28 +644,67 @@ if ([appDelegate.pagename length]== 0)
             UILabel *label = [[UILabel alloc]init];
             label.backgroundColor = [UIColor clearColor];
             label.numberOfLines = 0;
-
-            if ([[tempdata objectAtIndex:i] count] > 10)
+            if ([[tempdata objectAtIndex:i] count] > 11)
+                 {
+                     label.font = [UIFont fontWithName:[[tempdata objectAtIndex:i] objectAtIndex:8] size:[[[tempdata objectAtIndex:i] objectAtIndex:9] floatValue]];
+                     CGSize size = [[[tempdata objectAtIndex:i] objectAtIndex:4] sizeWithFont:label.font constrainedToSize:CGSizeMake([[[tempdata objectAtIndex:i] objectAtIndex:2] floatValue] /4*3 ,[[[tempdata objectAtIndex:i] objectAtIndex:3] floatValue] /4*3 ) lineBreakMode:NSLineBreakByWordWrapping];
+                     NSLog(@"Label Size %@", NSStringFromCGSize(size));
+                     label.frame =  CGRectIntegral(CGRectMake([[[tempdata objectAtIndex:i] objectAtIndex:0] floatValue] /4 *3, [[[tempdata objectAtIndex:i] objectAtIndex:1] floatValue]/4 *3, size.width, size.height));
+                     label.text = [[tempdata objectAtIndex:i] objectAtIndex:4];
+                 }
+            else if ([[tempdata objectAtIndex:i] count] > 9 && [[tempdata objectAtIndex:i] count] <= 11)
             {
-       label.frame = CGRectIntegral(CGRectMake(roundf([[[tempdata objectAtIndex:i] objectAtIndex:0] floatValue] /4 *3), roundf([[[tempdata objectAtIndex:i] objectAtIndex:1] floatValue]/4 *3), roundf([[[tempdata objectAtIndex:i] objectAtIndex:2] floatValue]/4 *3), roundf([[[tempdata objectAtIndex:i] objectAtIndex:3] floatValue]/4 *3)));
-                label.font = [UIFont fontWithName:[[tempdata objectAtIndex:i] objectAtIndex:8] size:[[[tempdata objectAtIndex:i] objectAtIndex:9] floatValue]];
-                label.text = [[tempdata objectAtIndex:i] objectAtIndex:4];
+                 if ([[[tempdata objectAtIndex:i] objectAtIndex:5] isEqualToString:@"text"]) {
+                    label.font = [UIFont fontWithName:[[tempdata objectAtIndex:i] objectAtIndex:7] size:[[[tempdata objectAtIndex:i] objectAtIndex:8] floatValue]];
+                    CGSize size = [[[tempdata objectAtIndex:i] objectAtIndex:3] sizeWithFont:label.font constrainedToSize:CGSizeMake([[[tempdata objectAtIndex:i] objectAtIndex:2] floatValue] /4*3, 9999) lineBreakMode:NSLineBreakByWordWrapping];
+                    label.frame =   CGRectIntegral(CGRectMake([[[tempdata objectAtIndex:i] objectAtIndex:0] floatValue] /4 *3, [[[tempdata objectAtIndex:i] objectAtIndex:1] floatValue]/4 *3, size.width, size.height));
+                    label.text = [[tempdata objectAtIndex:i] objectAtIndex:3];
+                     NSLog(@"Label Frame %@", NSStringFromCGRect(label.frame));
+                 }
+                     else{
+                         label.font = [UIFont fontWithName:[[tempdata objectAtIndex:i] objectAtIndex:8] size:[[[tempdata objectAtIndex:i] objectAtIndex:9] floatValue]];
+                         CGSize size = [[[tempdata objectAtIndex:i] objectAtIndex:4] sizeWithFont:label.font constrainedToSize:CGSizeMake([[[tempdata objectAtIndex:i] objectAtIndex:2] floatValue]/4*3,[[[tempdata objectAtIndex:i] objectAtIndex:3]floatValue]/4*3) lineBreakMode:NSLineBreakByWordWrapping];
+                         label.frame =   CGRectIntegral(CGRectMake([[[tempdata objectAtIndex:i] objectAtIndex:0] floatValue] /4 *3, [[[tempdata objectAtIndex:i] objectAtIndex:1] floatValue]/4 *3, size.width, size.height));
+                         label.text = [[tempdata objectAtIndex:i] objectAtIndex:4];
+                         NSLog(@"Got Here");
+                     }
             }
             else{
+               
                 label.font = [UIFont fontWithName:[[tempdata objectAtIndex:i] objectAtIndex:6] size:[[[tempdata objectAtIndex:i] objectAtIndex:7] floatValue]];
                 CGSize size = [[[tempdata objectAtIndex:i] objectAtIndex:2] sizeWithFont:label.font constrainedToSize:CGSizeMake(9999, 9999) lineBreakMode:NSLineBreakByWordWrapping];
                 label.frame =   CGRectIntegral(CGRectMake([[[tempdata objectAtIndex:i] objectAtIndex:0] floatValue] /4 *3, [[[tempdata objectAtIndex:i] objectAtIndex:1] floatValue]/4 *3, size.width, size.height));
                label.text = [[tempdata objectAtIndex:i] objectAtIndex:2];
+                }
+                          
+                          [mainview addSubview:label];
             }
-        [mainview addSubview:label];
         }
+                        
     }
                     [pages iterate:@"field" usingBlock: ^(RXMLElement *field) {
                         NSMutableArray *test = [[NSMutableArray alloc] init];
-                        [field iterate:@"itemlocation.*" usingBlock:^(RXMLElement *repElement) {
-                            NSString *temp = repElement.text;
-                            [test addObject:temp];
-                        }];
+                        [test addObject:[field child:@"itemlocation.x"].text];
+                        [test addObject:[field child:@"itemlocation.y"].text];
+                      if ([field child:@"itemlocation.width"] != nil)
+                      {
+                          [test addObject:[field child:@"itemlocation.width"].text];
+                      }
+                        if ([field child:@"itemlocation.width"] != nil && [field child:@"itemlocation.height"] == nil && [field child:@"size.height"] == nil)
+                        {
+                            [test addObject:@"No Height"];
+                        }
+
+                        if ([field child:@"itemlocation.height"] != nil)
+                        {
+                            [test addObject:[field child:@"itemlocation.height"].text];
+                        }
+                        
+                            
+                        if ([field child:@"size.height"] != nil && [field child:@"itemlocation.height"] == nil) {
+                            [test addObject:[field child:@"size.height"].text];
+                            [test addObject:@"height"];
+                        }
                         if ([field child:@"justify"] != nil) {
                             [test addObject:[field child:@"justify"].text];
                         }
@@ -648,7 +712,7 @@ if ([appDelegate.pagename length]== 0)
                         {
                             [test addObject:@"left"];
                         }
-                        if (![[field child:@"value"].text isEqualToString:@""]) {
+                        if (![[field child:@"value"].text isEqualToString:@""] && [field child:@"value"] != nil) {
                             [test addObject:[field child:@"value"].text];
                         }
                         else {
@@ -660,29 +724,80 @@ if ([appDelegate.pagename length]== 0)
                                 [test addObject:fontElement.text];
                             }];
                         }
+                        else {
+                            [test addObject:@"Arial"];
+                            [test addObject:@"8"];
+                            [test addObject:@"plain"];
+                        }
                         [fielddata addObject:test];         
                     }];
                     for(int i = 0; i < [fielddata count]; i++){
                         UITextView *text = [[UITextView alloc] init];
                         text.layer.borderWidth = 1.0f;
                         text.delegate = self;
-                        text.frame =  CGRectIntegral(CGRectMake([[[fielddata objectAtIndex:i] objectAtIndex:0] floatValue] /4 *3, [[[fielddata objectAtIndex:i] objectAtIndex:1] floatValue]/4 *3-1, [[[fielddata objectAtIndex:i] objectAtIndex:2] floatValue]/4 *3-1, [[[fielddata objectAtIndex:i] objectAtIndex:3] floatValue]/4 *3-1));
-                      
-                        text.font = [UIFont fontWithName:[[fielddata objectAtIndex:i] objectAtIndex:6] size:[[[fielddata objectAtIndex:i] objectAtIndex:7] floatValue]];
-                        if ([[[fielddata objectAtIndex:i] objectAtIndex:4] isEqualToString:@"center"]) {
-                            text.textAlignment = UITextAlignmentCenter;
-                        }
-                        text.text = [[fielddata objectAtIndex:i] objectAtIndex:5];
-                        if ([text hasText])
-                        {
-                            text.layer.borderWidth = 0.0f;
-                            text.backgroundColor = [UIColor clearColor];
-                        }
-                        else
-                        {
-                            text.layer.borderWidth = 1.0f;
-                        }
-                        [mainview addSubview:text];
+                       if ([[[fielddata objectAtIndex:i] objectAtIndex:4] isEqualToString:@"height"])
+                       {
+                        text.font = [UIFont fontWithName:[[fielddata objectAtIndex:i] objectAtIndex:7] size:[[[fielddata objectAtIndex:i] objectAtIndex:8] floatValue]];
+                            CGSize size = [@"A" sizeWithFont:text.font constrainedToSize:CGSizeMake(9999, 9999) lineBreakMode:NSLineBreakByWordWrapping];
+                            text.frame =  CGRectIntegral(CGRectMake([[[fielddata objectAtIndex:i] objectAtIndex:0] floatValue] /4 *3, [[[fielddata objectAtIndex:i] objectAtIndex:1] floatValue]/4 *3,  ([[[fielddata objectAtIndex:i] objectAtIndex:2] floatValue]/4*3), size.height * [[[fielddata objectAtIndex:i] objectAtIndex:3] floatValue] *1.1));
+                            if ([[[fielddata objectAtIndex:i] objectAtIndex:5] isEqualToString:@"center"]) {
+                                text.textAlignment = UITextAlignmentCenter;
+                            }
+                            text.text = [[fielddata objectAtIndex:i] objectAtIndex:6];
+                            if ([text hasText])
+                            {
+                                text.layer.borderWidth = 0.0f;
+                                text.backgroundColor = [UIColor clearColor];
+                            }
+                            else
+                            {
+                                text.layer.borderWidth = 1.0f;
+                            }
+
+                       }
+                       else{
+                           if ([[[fielddata objectAtIndex:i] objectAtIndex:3] isEqualToString:@"No Height"])
+                           {
+                               text.font = [UIFont fontWithName:[[fielddata objectAtIndex:i] objectAtIndex:6] size:[[[fielddata objectAtIndex:i] objectAtIndex:7] floatValue]];
+                               CGSize size = [@"A" sizeWithFont:text.font constrainedToSize:CGSizeMake(9999, 9999) lineBreakMode:NSLineBreakByWordWrapping];
+                               text.frame =  CGRectIntegral(CGRectMake([[[fielddata objectAtIndex:i] objectAtIndex:0] floatValue] /4 *3, [[[fielddata objectAtIndex:i] objectAtIndex:1] floatValue]/4 *3-2,  [[[fielddata objectAtIndex:i] objectAtIndex:2] floatValue]/4*3, size.height));
+                               NSLog(@"field frame %@", NSStringFromCGRect(text.frame));
+                               if ([[[fielddata objectAtIndex:i] objectAtIndex:4] isEqualToString:@"center"]) {
+                                   text.textAlignment = UITextAlignmentCenter;
+                               }
+                               text.text = [[fielddata objectAtIndex:i] objectAtIndex:5];
+                               if ([text hasText])
+                               {
+                                   text.layer.borderWidth = 0.0f;
+                                   text.backgroundColor = [UIColor clearColor];
+                               }
+                               else
+                               {
+                                   text.layer.borderWidth = 1.0f;
+                               }
+
+                           }
+                           else
+                           {
+                           text.font = [UIFont fontWithName:[[fielddata objectAtIndex:i] objectAtIndex:6] size:[[[fielddata objectAtIndex:i] objectAtIndex:7] floatValue]];
+                           text.frame =  CGRectIntegral(CGRectMake([[[fielddata objectAtIndex:i] objectAtIndex:0] floatValue] /4 *3, [[[fielddata objectAtIndex:i] objectAtIndex:1] floatValue]/4 *3-2,  [[[fielddata objectAtIndex:i] objectAtIndex:2] floatValue]/4*3, [[[fielddata objectAtIndex:i] objectAtIndex:3] floatValue]/4*3));
+                           NSLog(@"field frame %@", NSStringFromCGRect(text.frame));
+                           if ([[[fielddata objectAtIndex:i] objectAtIndex:4] isEqualToString:@"center"]) {
+                               text.textAlignment = UITextAlignmentCenter;
+                           }
+                           text.text = [[fielddata objectAtIndex:i] objectAtIndex:5];
+                           if ([text hasText])
+                           {
+                               text.layer.borderWidth = 0.0f;
+                               text.backgroundColor = [UIColor clearColor];
+                           }
+                           else
+                           {
+                               text.layer.borderWidth = 1.0f;
+                           }
+                           }
+                       }
+            [mainview addSubview:text];
                     }
                     [pages iterate:@"line" usingBlock: ^(RXMLElement *lines) {
                         NSMutableArray *tester = [[NSMutableArray alloc] init];
@@ -692,6 +807,79 @@ if ([appDelegate.pagename length]== 0)
                         }];
                         [appDelegate.linedata addObject:tester];
                     }];
+                    [pages iterate:@"check" usingBlock: ^(RXMLElement *checks) {
+                    NSMutableArray *tester = [[NSMutableArray alloc] init];
+                    [checks iterate:@"itemlocation.*" usingBlock:^(RXMLElement *repElements) {
+                        if (![repElements.tag isEqualToString:@"offsetx"] && ![repElements.tag isEqualToString:@"offsety"] && ![repElements.tag isEqualToString:@"alignl2l"])
+                        {
+                        NSString *temp = repElements.text;
+                        
+                            [tester addObject:temp];
+                        }
+                        }];
+                        if ([checks child:@"value"] != nil && ![[checks child:@"value"].text isEqualToString:@""])
+                        {
+                            
+                         [tester addObject:[checks child:@"value"].text];
+                            
+                        }
+                    if ([checks child:@"fontinfo"] != nil)
+                    {
+                        [checks iterate:@"fontinfo.*" usingBlock:^(RXMLElement *fontElements) {
+                            NSString *temp = fontElements.text;
+                            [tester addObject:temp];
+                        }];
+                    }
+                   
+                    [checkdata addObject:tester];
+                }];
+                    for(int i = 0; i < [checkdata count]; i++){
+                 
+                        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+                        button.tag = arc4random();
+                        if ([[checkdata objectAtIndex:i] count] > 9)
+                        {
+                        button.frame = CGRectIntegral(CGRectMake([[[checkdata objectAtIndex:i] objectAtIndex:0] floatValue] /4 *3, [[[checkdata objectAtIndex:i] objectAtIndex:1] floatValue] /4 *3, [[[checkdata objectAtIndex:i] objectAtIndex:2] floatValue]/4 *3, [[[checkdata objectAtIndex:i] objectAtIndex:3] floatValue] /4 *3));
+                            if ([[[checkdata objectAtIndex:i] objectAtIndex:4] isEqualToString:@"off"])
+                            {
+                                [button setSelected:NO];
+                            }
+                            else {
+                                [button setSelected:YES];
+                            }
+                        }
+                        else
+                        {
+                            if ([[checkdata objectAtIndex:i] count] > 4) {
+                            button.titleLabel.font = [UIFont fontWithName:[[checkdata objectAtIndex:i] objectAtIndex:3] size:[[[checkdata objectAtIndex:i] objectAtIndex:4] floatValue]];
+                                if ([[[checkdata objectAtIndex:i] objectAtIndex:2] isEqualToString:@"off"])
+                                {
+                                    [button setSelected:NO];
+                                }
+                                else {
+                                    [button setSelected:YES];
+                                }
+
+                            }
+                            else
+                            {
+                                [button setSelected:NO];
+                                 button.titleLabel.font = [UIFont fontWithName:@"Arial" size:8];
+                            }
+                            CGSize size = [@"A" sizeWithFont:button.titleLabel.font constrainedToSize:CGSizeMake(9999, 9999) lineBreakMode:NSLineBreakByWordWrapping];
+                             button.frame = CGRectIntegral(CGRectMake([[[checkdata objectAtIndex:i] objectAtIndex:0] floatValue]/4*3, ([[[checkdata objectAtIndex:i] objectAtIndex:1] floatValue] /4 *3),size.width+8, size.height));
+                                                   
+                           
+                        }
+                        NSLog(@"button frame %@", NSStringFromCGRect( button.frame));
+                        button.backgroundColor = [UIColor whiteColor];
+                        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal | UIControlStateSelected];
+                        button.layer.borderWidth = 1.0f;
+                        [button addTarget:self action:@selector(checkBoxClicked:) forControlEvents:UIControlEventTouchUpInside];
+                        [button setTitle:@"" forState:UIControlStateNormal];
+                        [button setTitle:@"X" forState:UIControlStateSelected];
+                        [mainview addSubview:button];
+                    }
                 }
             NSLog(@"field data = %@", fielddata);
             NSLog(@"lines%@", appDelegate.linedata);
@@ -700,8 +888,7 @@ if ([appDelegate.pagename length]== 0)
             NSLog(@"cells %@", celldata);
             NSLog(@"combobox %@", combodata);
             scrollView.contentSize = CGSizeMake(mainview.frame.size.width, mainview.frame.size.height);
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+          
         }
         if ([[pages attribute:@"sid"] isEqualToString:@"RESOURCE_PAGE"])
         {
@@ -782,11 +969,8 @@ if ([appDelegate.pagename length]== 0)
         }
                //[self saveToDocumentsWithFileName:@"pdf.pdf"];
 }
-- (void)keyboardWillShow:(NSNotification *) note {
+- (void)keyboardWillShow {
     [scrollView setScrollEnabled:NO];
-    
-  
-
      NSString *deviceType = [UIDevice currentDevice].model;
     UIInterfaceOrientation interfaceOrientation = self.interfaceOrientation;
     toolbar = [[UIToolbar alloc] init];
@@ -820,14 +1004,14 @@ if ([appDelegate.pagename length]== 0)
     toolbar.items = toolbarItems;
     [scrollView addSubview:toolbar];
 }
-- (void)keyboardWillHide:(NSNotification *) note {
+- (void)keyboardWillHide {
     [toolbar removeFromSuperview];
     [scrollView setScrollEnabled:YES];
 }
 - (void)cancelAction {
     [self.view endEditing:TRUE];
     [toolbar removeFromSuperview];
-      [scrollView setScrollEnabled:YES];
+    [scrollView setScrollEnabled:YES];
 }
 -(void)textViewDidEndEditing:(UITextView *)textView{
 if([textView hasText])
@@ -837,12 +1021,10 @@ if([textView hasText])
 }
 }
 -(void)textViewDidBeginEditing:(UITextView *)textView{
-    //CGPoint point = [textView contentOffset];
-    [scrollView setContentOffset:CGPointMake(textView.frame.origin.x, textView.frame.origin.y) animated:YES];
+    [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     
-}
+      }
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-
     NSString *deviceType = [UIDevice currentDevice].model;
     UIInterfaceOrientation interfaceOrientation = self.interfaceOrientation;
    pickerview.frame = CGRectMake(0, scrollView.frame.size.height-190, scrollView.frame.size.width, 180.0f);

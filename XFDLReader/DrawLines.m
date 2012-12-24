@@ -37,7 +37,7 @@
     
     //CGContextSetStrokeColorWithColor(context, color);
   for(int i = 0; i < [appDelegate.linedata count]; i++){
-       if ([[appDelegate.linedata objectAtIndex:i] count] > 4)
+       if ([[appDelegate.linedata objectAtIndex:i] count] > 5)
        {
       x =  [[[appDelegate.linedata objectAtIndex:i] objectAtIndex:1] intValue];
       y = [[[appDelegate.linedata objectAtIndex:i] objectAtIndex:2] intValue];

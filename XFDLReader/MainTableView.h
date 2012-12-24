@@ -14,6 +14,5 @@
 @property (nonatomic, retain) NSArray *filelist;
 @property (nonatomic, retain) NSURL *fileURL;
 - (void)handleOpenURL:(NSURL *)url;
--(IBAction)pushSupport:(id)sender;
--(IBAction)pushAPD:(id)sender;
+
 @end
