@@ -12,24 +12,24 @@
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tap a file below to view its form." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SzR-cb-rhu">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tap a file below to view its form." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eYi-BN-0TD">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="twG-dp-uaY">
-                                <rect key="frame" x="0.0" y="60" width="768" height="826"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Csu-Mp-aca">
+                                <rect key="frame" x="0.0" y="100" width="768" height="760"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="Stu-Kg-dGo" id="clb-gS-DSN"/>
-                                    <outlet property="delegate" destination="Stu-Kg-dGo" id="sgq-GX-MAh"/>
+                                    <outlet property="dataSource" destination="Stu-Kg-dGo" id="bzf-FP-oBq"/>
+                                    <outlet property="delegate" destination="Stu-Kg-dGo" id="WQ0-pu-bUY"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ggZ-dV-Nmy">
-                                <rect key="frame" x="20" y="908" width="728" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FiH-wL-Tst">
+                                <rect key="frame" x="10" y="870" width="738" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Help and Support">
@@ -40,7 +40,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="rNA-0D-BJu" kind="push" id="17x-VZ-Rpz"/>
+                                    <segue destination="rNA-0D-BJu" kind="push" identifier="supportPush" id="AKX-bw-7Wg"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -49,7 +49,7 @@
                     <navigationItem key="navigationItem" id="GJy-19-wYV"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <connections>
-                        <outlet property="myTableView" destination="twG-dp-uaY" id="A9w-m8-h3m"/>
+                        <outlet property="myTableView" destination="Csu-Mp-aca" id="Nuh-tT-3wz"/>
                         <outlet property="view" destination="bfT-l7-zaZ" id="P7r-qd-nDr"/>
                     </connections>
                 </viewController>
@@ -80,7 +80,6 @@
                     <connections>
                         <outlet property="mainview" destination="0c5-IW-b7R" id="yPY-Lw-A7X"/>
                         <outlet property="scrollView" destination="vsk-2f-jDM" id="AAS-jS-Z9J"/>
-                        <outlet property="view" destination="vsk-2f-jDM" id="BLf-Pm-xjV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2sX-9n-kGd" sceneMemberID="firstResponder"/>
@@ -197,9 +196,37 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zCm-yk-wTY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-557" y="248"/>
+            <point key="canvasLocation" x="1419" y="512"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="DrawLines" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DrawLines.h"/>
+        </class>
+        <class className="MainTableView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainTableView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="SupportController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SupportController.h"/>
+            <relationships>
+                <relationship kind="action" name="emailMe:"/>
+                <relationship kind="action" name="pushAPD:"/>
+                <relationship kind="action" name="pushAir:"/>
+                <relationship kind="action" name="pushSupport:"/>
+                <relationship kind="action" name="rateMe:"/>
+            </relationships>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mainview" candidateClass="UIView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

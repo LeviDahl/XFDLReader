@@ -12,10 +12,13 @@
 #import "NSData+GZIP.h"
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
+
 @interface ViewController : UIViewController <UIScrollViewDelegate, UITextViewDelegate, UIAlertViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate, UIPrintInteractionControllerDelegate>
 {
     NSString *filepath;
     UIDocumentInteractionController *documentController;
+    CGPoint svos;
+    UIToolbar *toolbar;
 }
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
@@ -31,10 +34,10 @@
 @property (nonatomic, retain) NSMutableArray *fielddata;
 @property (nonatomic, retain) NSString *filepath;
 @property (nonatomic, retain) UIToolbar *toolbar;
-@property (nonatomic, retain) IBOutlet UIView *modalLabel;
 @property (nonatomic, retain) UIPickerView *pickerview;
 @property (nonatomic, retain) NSString *pickerstring;
 @property (nonatomic, retain) UIPrintInteractionController *printController;
-
+@property (nonatomic, retain) UIView *keyboardView;
+@property (nonatomic, retain) UIColor *backgroundColor;
 -(void)nextpage;
 @end
