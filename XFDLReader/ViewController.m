@@ -62,10 +62,10 @@ BOOL loaded = NO;
    }
     [rootXML iterate:@"*" usingBlock: ^(RXMLElement *pages) {
                NSString *pagenum = [pages attribute:@"sid"];
-        if ([pagenum length] >= 5)
-            pagenum = [pagenum substringToIndex:5];
+        if ([pagenum length] >= 6)
+            pagenum = [pagenum substringToIndex:6];
         pagenum = [pagenum uppercaseString];
-        if ([pagenum isEqualToString:@"AFFOR"])
+        if ([pagenum isEqualToString:@"AFFORM"])
         {
             pagenum = @"PAGE1";
         }
@@ -517,7 +517,7 @@ if ([appDelegate.pagename length]== 0)
             }
             else
             {
-              //  NSLog(@"7.7Form");
+                NSLog(@"7.7Form");
                     if ([[rootXML child:@"globalpage.global.printsettings.dialog.orientation"].text isEqualToString:@"portrait"])
                     {
                         mainview.frame = CGRectIntegral(CGRectMake(0,0,700,958));
@@ -614,7 +614,7 @@ if ([appDelegate.pagename length]== 0)
             [tempdata addObject:test];
         }];
                     for(int i = 0; i < [tempdata count]; i++){
-                        if (![[[tempdata objectAtIndex:i] objectAtIndex:0] isEqualToString:@"TOOLBAR"])
+                        if (![[[tempdata objectAtIndex:i] objectAtIndex:0] isEqualToString:@"TOOLBAR"]&&![[[[tempdata objectAtIndex:i] objectAtIndex:0] substringToIndex:1] isEqualToString:@"S"])
                         {
                         if ([[tempdata objectAtIndex:i ]count] < 7) {
                             if ([[[tempdata objectAtIndex:i] objectAtIndex:8] isEqualToString:@"image"])        {
@@ -1096,7 +1096,6 @@ if([textView hasText])
            ViewController *viewCon = [self.storyboard instantiateViewControllerWithIdentifier:@"mainview"];
            viewCon.filepath = filepath;
            [self.navigationController pushViewController:viewCon animated:YES];
-
        }
     }
 }
