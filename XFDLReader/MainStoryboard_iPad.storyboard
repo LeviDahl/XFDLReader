@@ -55,34 +55,44 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wYz-YJ-yIU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-500" y="-427"/>
+            <point key="canvasLocation" x="-124" y="-11"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="yaA-Px-PH1">
             <objects>
                 <viewController storyboardIdentifier="mainview" id="Xj1-sM-Spz" customClass="ViewController" sceneMemberID="viewController">
-                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="vsk-2f-jDM">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" id="0c5-IW-b7R" customClass="DrawLines">
-                                <rect key="frame" x="0.0" y="72" width="750" height="932"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
-                        <connections>
-                            <outlet property="delegate" destination="Xj1-sM-Spz" id="ftX-xE-jmo"/>
-                        </connections>
-                    </scrollView>
                     <navigationItem key="navigationItem" id="zwd-IL-GCH"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <connections>
                         <outlet property="mainview" destination="0c5-IW-b7R" id="yPY-Lw-A7X"/>
                         <outlet property="scrollView" destination="vsk-2f-jDM" id="AAS-jS-Z9J"/>
+                        <outlet property="view" destination="zw2-7O-mQr" id="Ozj-pR-T4j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2sX-9n-kGd" sceneMemberID="firstResponder"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="zw2-7O-mQr">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <subviews>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="vsk-2f-jDM">
+                            <rect key="frame" x="-264" y="-438" width="768" height="1004"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <view clipsSubviews="YES" contentMode="scaleToFill" id="0c5-IW-b7R" customClass="DrawLines">
+                                    <rect key="frame" x="0.0" y="72" width="750" height="932"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                </view>
+                            </subviews>
+                            <connections>
+                                <outlet property="delegate" destination="Xj1-sM-Spz" id="ftX-xE-jmo"/>
+                            </connections>
+                        </scrollView>
+                    </subviews>
+                    <connections>
+                        <outlet property="delegate" destination="Xj1-sM-Spz" id="LGp-ek-Vql"/>
+                    </connections>
+                </scrollView>
             </objects>
             <point key="canvasLocation" x="1374" y="-723"/>
         </scene>
@@ -199,34 +209,6 @@
             <point key="canvasLocation" x="1419" y="512"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="DrawLines" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DrawLines.h"/>
-        </class>
-        <class className="MainTableView" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainTableView.h"/>
-            <relationships>
-                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="SupportController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SupportController.h"/>
-            <relationships>
-                <relationship kind="action" name="emailMe:"/>
-                <relationship kind="action" name="pushAPD:"/>
-                <relationship kind="action" name="pushAir:"/>
-                <relationship kind="action" name="pushSupport:"/>
-                <relationship kind="action" name="rateMe:"/>
-            </relationships>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mainview" candidateClass="UIView"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

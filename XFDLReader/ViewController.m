@@ -9,6 +9,7 @@
 
 @end
 BOOL loaded = NO;
+ BOOL nextpagetrue;
 @implementation ViewController
 @synthesize tempdata, scrollView, mainview, fielddata, toolbar, imagedata, pagesarray, filepath, checkdata, celldata, combodata, pickerview, pickerstring, pickerarray, resourcearray, printController, backgroundColor;
 - (void)viewDidLoad {
@@ -83,14 +84,14 @@ if ([appDelegate.pagename length]== 0)
         {
             if ([rootXML child:@"globalpage.global.date"] == nil)
             {
-             //   NSLog(@"6.5Form");
+                NSLog(@"6.5Form");
                 if ([[pages child:@"global.vfd_pagesize"].text isEqualToString:@"letter"]) {
                     if ([[rootXML child:@"globalpage.global.printsettings.dialog.orientation"].text isEqualToString:@"landscape"])
                     {
-                    mainview.frame = CGRectIntegral(CGRectMake(0,0,958,710));
+                    mainview.frame = CGRectIntegral(CGRectMake(0,0,958,730));
                     }
                     else{
-                         mainview.frame = CGRectIntegral(CGRectMake(0,0,710,958));
+                         mainview.frame = CGRectIntegral(CGRectMake(0,0,730,958));
                     }
                 }
                 else if ([[pages child:@"global.vfd_pagesize"].text isEqualToString:@"custom"]) {
@@ -108,7 +109,13 @@ if ([appDelegate.pagename length]== 0)
                     }
                 }
                 else {
-                    mainview.frame = CGRectIntegral(CGRectMake(0,0,710,958));
+                    if ([[rootXML child:@"globalpage.global.printsettings.dialog.orientation"].text isEqualToString:@"landscape"])
+                    {
+                        mainview.frame = CGRectIntegral(CGRectMake(0,0,958,730));
+                    }
+                    else{
+                        mainview.frame = CGRectIntegral(CGRectMake(0,0,730,958));
+                    }
                 }
                 NSMutableArray *bgcolor = [[NSMutableArray alloc] init];
                 [pages iterate:@"global.bgcolor.*" usingBlock: ^(RXMLElement *colors) {
@@ -145,8 +152,7 @@ if ([appDelegate.pagename length]== 0)
                     NSMutableArray *test = [[NSMutableArray alloc] init];
                     if ([title length] >= 5)
                         title = [title substringToIndex:5];
-                    if ([title isEqualToString:@"LABEL"])
-                    {
+                   
                         [player iterate:@"itemlocation.ae" usingBlock:^(RXMLElement *repElement) {
                             [repElement iterate:@"ae" usingBlock:^(RXMLElement *xy) {
                                 NSString *temp = xy.text;
@@ -195,7 +201,7 @@ if ([appDelegate.pagename length]== 0)
                             [test addObject:@"8"];
                         }
                         [tempdata addObject:test];
-                    }
+                    
                 }];
                 for(int i = 0; i < [tempdata count]; i++){
                     if ([[tempdata objectAtIndex:i ]count] > 11) {
@@ -218,7 +224,13 @@ if ([appDelegate.pagename length]== 0)
                     UILabel *label = [[UILabel alloc] init];
                     label.backgroundColor = [UIColor clearColor];
                     label.frame =  CGRectIntegral(CGRectMake(roundf([[[tempdata objectAtIndex:i] objectAtIndex:1] floatValue] /4 *3), roundf([[[tempdata objectAtIndex:i] objectAtIndex:2] floatValue]/4 *3), roundf([[[tempdata objectAtIndex:i] objectAtIndex:4] floatValue]/4 *3), roundf([[[tempdata objectAtIndex:i] objectAtIndex:5] floatValue]/4 *3)));
-                    label.font = [UIFont fontWithName:[[tempdata objectAtIndex:i] objectAtIndex:10] size:[[[tempdata objectAtIndex:i] objectAtIndex:11] floatValue]];
+                            if ([[[tempdata objectAtIndex:i] objectAtIndex:10] isEqualToString:@"Arial Narrow"])
+                            {
+                            label.font = [UIFont fontWithName:@"Arial" size:[[[tempdata objectAtIndex:i] objectAtIndex:11] floatValue]];
+                            }
+                            else{
+                                 label.font = [UIFont fontWithName:[[tempdata objectAtIndex:i] objectAtIndex:10] size:[[[tempdata objectAtIndex:i] objectAtIndex:11] floatValue]];
+                            }
                     label.text = [[tempdata objectAtIndex:i] objectAtIndex:6];
                     label.numberOfLines = 0;
                         if ([[tempdata objectAtIndex:i] count] > 7)
@@ -250,7 +262,14 @@ if ([appDelegate.pagename length]== 0)
                 else{
                 UILabel *label = [[UILabel alloc] init];
                 label.backgroundColor = [UIColor clearColor];
-                   label.font = [UIFont fontWithName:[[tempdata objectAtIndex:i] objectAtIndex:7] size:[[[tempdata objectAtIndex:i] objectAtIndex:8] floatValue]];
+                if ([[[tempdata objectAtIndex:i] objectAtIndex:7] isEqualToString:@"Arial Narrow"])
+                {
+                      label.font = [UIFont fontWithName:@"Arial" size:[[[tempdata objectAtIndex:i] objectAtIndex:8] floatValue]];
+                }
+                    else
+                    {
+                    label.font = [UIFont fontWithName:[[tempdata objectAtIndex:i] objectAtIndex:7] size:[[[tempdata objectAtIndex:i] objectAtIndex:8] floatValue]];
+                    }
                     label.numberOfLines = 0;
                     CGSize size = [[[tempdata objectAtIndex:i] objectAtIndex:3] sizeWithFont:label.font constrainedToSize:CGSizeMake(9999, 9999) lineBreakMode:NSLineBreakByWordWrapping];
                     label.frame =   CGRectIntegral(CGRectMake([[[tempdata objectAtIndex:i] objectAtIndex:1] floatValue] /4 *3, [[[tempdata objectAtIndex:i] objectAtIndex:2] floatValue]/4 *3, size.width, size.height));
@@ -520,8 +539,7 @@ if ([appDelegate.pagename length]== 0)
                 NSLog(@"7.7Form");
                     if ([[rootXML child:@"globalpage.global.printsettings.dialog.orientation"].text isEqualToString:@"portrait"])
                     {
-                        mainview.frame = CGRectIntegral(CGRectMake(0,0,700,958));
-                       
+                        mainview.frame = CGRectIntegral(CGRectMake(0,0,730,958));
                     }
                     else if ([[rootXML child:@"globalpage.global.printsettings.dialog.orientation"].text isEqualToString:@"landscape"])
                     {
@@ -1029,6 +1047,7 @@ if([textView hasText])
 }
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
    pickerview.frame = CGRectMake(0, scrollView.frame.size.height-200, scrollView.frame.size.width, 180.0f);
+    [self centerScrollViewContents];
 }
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
     // The scroll view has zoomed, so we need to re-center the contents
@@ -1072,31 +1091,34 @@ if([textView hasText])
 -(void)nextpage {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 
-    BOOL nextpagetrue;
+   
      nextpagetrue = NO;
     for (int i = 0; i < [pagesarray count]; i++)
     {
-          NSLog(@"arraypage %@", [pagesarray objectAtIndex:0]);
-          NSLog(@"arraypage2 %@", appDelegate.pagename);
-        
-        if ([[pagesarray objectAtIndex:i] isEqualToString:appDelegate.pagename])
+          
+        NSLog(@"pagenamer %@", appDelegate.pagename);
+  NSLog(@"arraypager %@", pagesarray);
+        if ([[pagesarray objectAtIndex:i] isEqualToString:appDelegate.pagename] && [pagesarray objectAtIndex:i] != [pagesarray lastObject])
         {
-            nextpagetrue = YES;
+             appDelegate.pagename = [pagesarray objectAtIndex:(i +1)];
+            NSLog(@"arraypage %@", pagesarray);
+            NSLog(@"arraypage2 %@", appDelegate.pagename);
+            NSLog(@"pagename %@", appDelegate.pagename);
+            ViewController *viewCon = [self.storyboard instantiateViewControllerWithIdentifier:@"mainview"];
+            viewCon.filepath = filepath;
+            [self.navigationController pushViewController:viewCon animated:YES];
+            break;
         }
-    }
+        else
+        {
+            
+        }
+}
     if (nextpagetrue)
     {
-        NSString *tempstring = [appDelegate.pagename substringFromIndex:4];
-       if ([tempstring intValue] < [pagesarray count])
-       {
-        int i = [tempstring intValue] + 1;
-        NSLog(@"tempstring %@", tempstring);
-        appDelegate.pagename = [NSString stringWithFormat:@"%@%d", [appDelegate.pagename substringToIndex:4], i];
-           NSLog(@"pagename %@", appDelegate.pagename);
-           ViewController *viewCon = [self.storyboard instantiateViewControllerWithIdentifier:@"mainview"];
-           viewCon.filepath = filepath;
-           [self.navigationController pushViewController:viewCon animated:YES];
-       }
+     
+          
+       
     }
 }
 -(BOOL)textViewShouldReturn:(UITextView*)textField {
@@ -1119,13 +1141,24 @@ if([textView hasText])
      AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if ([self isMovingFromParentViewController] )
     {
+        for (int i = 0; i < [pagesarray count]; i++)
+        {
+            
+            NSLog(@"pagenamer %@", appDelegate.pagename);
+            NSLog(@"arraypager %@", pagesarray);
+            if ([[pagesarray objectAtIndex:i] isEqualToString:appDelegate.pagename] && [pagesarray objectAtIndex:i] <0)
+            {
+                appDelegate.pagename = [pagesarray objectAtIndex:(i-1)];
+            }
+        }
+        /*
         NSLog(@"not called here");
         NSString *tempstring = [appDelegate.pagename substringFromIndex:4];
         if ([tempstring intValue] > 1){
         int i = [tempstring intValue] - 1;
         NSLog(@"tempstring %@", tempstring);
         appDelegate.pagename = [NSString stringWithFormat:@"%@%d", [appDelegate.pagename substringToIndex:4], i];
-        }
+        }*/
     }
 }
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{

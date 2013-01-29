@@ -34,12 +34,12 @@
 		9BC5387315FBBDCC003A3BEA /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5387215FBBDCC003A3BEA /* SenTestingKit.framework */; };
 		9BC5387415FBBDCC003A3BEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5385115FBBDCB003A3BEA /* UIKit.framework */; };
 		9BC5387515FBBDCC003A3BEA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5385315FBBDCB003A3BEA /* Foundation.framework */; };
-		9BC5387D15FBBDCC003A3BEA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9BC5387B15FBBDCC003A3BEA /* InfoPlist.strings */; };
-		9BC5388015FBBDCC003A3BEA /* XFDLReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5387F15FBBDCC003A3BEA /* XFDLReaderTests.m */; };
 		9BC5388E15FBD53B003A3BEA /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5388B15FBD53B003A3BEA /* NSData+Base64.m */; };
 		9BC5388F15FBD53B003A3BEA /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5388D15FBD53B003A3BEA /* NSString+Base64.m */; };
 		9BC5389515FBE0AD003A3BEA /* NSData+GZIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5389415FBE0AD003A3BEA /* NSData+GZIP.m */; };
 		9BC5389715FBE123003A3BEA /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5389615FBE123003A3BEA /* libz.dylib */; };
+		9BCD6C9416B0BC6100BC8549 /* FormModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCD6C9316B0BC6100BC8549 /* FormModel.m */; };
+		9BCD6C9716B0BE3E00BC8549 /* LabelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCD6C9616B0BE3D00BC8549 /* LabelModel.m */; };
 		9BDE6B341653029F0054FE53 /* MainTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE6B331653029F0054FE53 /* MainTableView.m */; };
 		9BDE6B4916530EA50054FE53 /* a4.xfdl in Resources */ = {isa = PBXBuildFile; fileRef = 9BDE6B4116530EA30054FE53 /* a4.xfdl */; };
 		9BF7E4E2165C243900481B91 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF7E4E0165C243800481B91 /* Icon.png */; };
@@ -93,10 +93,6 @@
 		9BC5386A15FBBDCC003A3BEA /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		9BC5387115FBBDCC003A3BEA /* XFDLReaderTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XFDLReaderTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BC5387215FBBDCC003A3BEA /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		9BC5387A15FBBDCC003A3BEA /* XFDLReaderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "XFDLReaderTests-Info.plist"; sourceTree = "<group>"; };
-		9BC5387C15FBBDCC003A3BEA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		9BC5387E15FBBDCC003A3BEA /* XFDLReaderTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XFDLReaderTests.h; sourceTree = "<group>"; };
-		9BC5387F15FBBDCC003A3BEA /* XFDLReaderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XFDLReaderTests.m; sourceTree = "<group>"; };
 		9BC5388A15FBD53B003A3BEA /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		9BC5388B15FBD53B003A3BEA /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		9BC5388C15FBD53B003A3BEA /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
@@ -104,6 +100,10 @@
 		9BC5389315FBE0AD003A3BEA /* NSData+GZIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+GZIP.h"; sourceTree = "<group>"; };
 		9BC5389415FBE0AD003A3BEA /* NSData+GZIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+GZIP.m"; sourceTree = "<group>"; };
 		9BC5389615FBE123003A3BEA /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		9BCD6C9216B0BC6100BC8549 /* FormModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormModel.h; sourceTree = "<group>"; };
+		9BCD6C9316B0BC6100BC8549 /* FormModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormModel.m; sourceTree = "<group>"; };
+		9BCD6C9516B0BE3D00BC8549 /* LabelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelModel.h; sourceTree = "<group>"; };
+		9BCD6C9616B0BE3D00BC8549 /* LabelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelModel.m; sourceTree = "<group>"; };
 		9BDE6B321653029E0054FE53 /* MainTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableView.h; sourceTree = "<group>"; };
 		9BDE6B331653029F0054FE53 /* MainTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableView.m; sourceTree = "<group>"; };
 		9BDE6B4116530EA30054FE53 /* a4.xfdl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = a4.xfdl; sourceTree = "<group>"; };
@@ -155,7 +155,6 @@
 			isa = PBXGroup;
 			children = (
 				9BC5385715FBBDCB003A3BEA /* XFDLReader */,
-				9BC5387815FBBDCC003A3BEA /* XFDLReaderTests */,
 				9BC5385015FBBDCB003A3BEA /* Frameworks */,
 				9BC5384E15FBBDCB003A3BEA /* Products */,
 			);
@@ -189,19 +188,10 @@
 		9BC5385715FBBDCB003A3BEA /* XFDLReader */ = {
 			isa = PBXGroup;
 			children = (
-				9BC5386015FBBDCB003A3BEA /* AppDelegate.h */,
-				9BC5386115FBBDCB003A3BEA /* AppDelegate.m */,
-				9BDE6B321653029E0054FE53 /* MainTableView.h */,
-				9BDE6B331653029F0054FE53 /* MainTableView.m */,
-				9BC5386315FBBDCB003A3BEA /* MainStoryboard_iPhone.storyboard */,
-				9B514433164DD5D70049DADD /* MainStoryboard_iPad.storyboard */,
-				9B78E96016868CCB00BB20C1 /* SupportController.h */,
-				9B78E96116868CCB00BB20C1 /* SupportController.m */,
-				9BC5386915FBBDCC003A3BEA /* ViewController.h */,
-				9BC5386A15FBBDCC003A3BEA /* ViewController.m */,
-				9B106AEF1649B509000918F6 /* DrawLines.h */,
-				9B106AF01649B509000918F6 /* DrawLines.m */,
-				9BF7E4DE165C222E00481B91 /* Third Party */,
+				9BCD6C9116B0BC4100BC8549 /* common */,
+				9BCD6C9016B0BBCF00BC8549 /* support */,
+				9BCD6C8E16B0BB9A00BC8549 /* table */,
+				9BCD6C8A16B0BB7200BC8549 /* forms */,
 				9BC5385815FBBDCB003A3BEA /* Supporting Files */,
 			);
 			path = XFDLReader;
@@ -210,6 +200,7 @@
 		9BC5385815FBBDCB003A3BEA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9BF7E4DE165C222E00481B91 /* Third Party */,
 				9B6988E0168D4E0200F44E20 /* Default-Portrait~ipad.png */,
 				9B6988E2168D4E4D00F44E20 /* Default-568h@2x~iphone.png */,
 				9B6988E4168D4E8300F44E20 /* Default@2x~iphone.png */,
@@ -227,25 +218,6 @@
 				9BC5385A15FBBDCB003A3BEA /* InfoPlist.strings */,
 				9BC5385D15FBBDCB003A3BEA /* main.m */,
 				9BC5385F15FBBDCB003A3BEA /* XFDLReader-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		9BC5387815FBBDCC003A3BEA /* XFDLReaderTests */ = {
-			isa = PBXGroup;
-			children = (
-				9BC5387E15FBBDCC003A3BEA /* XFDLReaderTests.h */,
-				9BC5387F15FBBDCC003A3BEA /* XFDLReaderTests.m */,
-				9BC5387915FBBDCC003A3BEA /* Supporting Files */,
-			);
-			path = XFDLReaderTests;
-			sourceTree = "<group>";
-		};
-		9BC5387915FBBDCC003A3BEA /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				9BC5387A15FBBDCC003A3BEA /* XFDLReaderTests-Info.plist */,
-				9BC5387B15FBBDCC003A3BEA /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -268,6 +240,74 @@
 				9BC5389415FBE0AD003A3BEA /* NSData+GZIP.m */,
 			);
 			path = GZIP;
+			sourceTree = "<group>";
+		};
+		9BCD6C8A16B0BB7200BC8549 /* forms */ = {
+			isa = PBXGroup;
+			children = (
+				9BCD6C8F16B0BB9C00BC8549 /* controller */,
+				9BCD6C8D16B0BB7D00BC8549 /* view */,
+				9BCD6C8C16B0BB7900BC8549 /* model */,
+			);
+			name = forms;
+			sourceTree = "<group>";
+		};
+		9BCD6C8C16B0BB7900BC8549 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				9BCD6C9216B0BC6100BC8549 /* FormModel.h */,
+				9BCD6C9316B0BC6100BC8549 /* FormModel.m */,
+				9BCD6C9516B0BE3D00BC8549 /* LabelModel.h */,
+				9BCD6C9616B0BE3D00BC8549 /* LabelModel.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		9BCD6C8D16B0BB7D00BC8549 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				9B106AEF1649B509000918F6 /* DrawLines.h */,
+				9B106AF01649B509000918F6 /* DrawLines.m */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		9BCD6C8E16B0BB9A00BC8549 /* table */ = {
+			isa = PBXGroup;
+			children = (
+				9BDE6B321653029E0054FE53 /* MainTableView.h */,
+				9BDE6B331653029F0054FE53 /* MainTableView.m */,
+			);
+			name = table;
+			sourceTree = "<group>";
+		};
+		9BCD6C8F16B0BB9C00BC8549 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				9BC5386915FBBDCC003A3BEA /* ViewController.h */,
+				9BC5386A15FBBDCC003A3BEA /* ViewController.m */,
+			);
+			name = controller;
+			sourceTree = "<group>";
+		};
+		9BCD6C9016B0BBCF00BC8549 /* support */ = {
+			isa = PBXGroup;
+			children = (
+				9B78E96016868CCB00BB20C1 /* SupportController.h */,
+				9B78E96116868CCB00BB20C1 /* SupportController.m */,
+			);
+			name = support;
+			sourceTree = "<group>";
+		};
+		9BCD6C9116B0BC4100BC8549 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				9BC5386015FBBDCB003A3BEA /* AppDelegate.h */,
+				9BC5386115FBBDCB003A3BEA /* AppDelegate.m */,
+				9BC5386315FBBDCB003A3BEA /* MainStoryboard_iPhone.storyboard */,
+				9B514433164DD5D70049DADD /* MainStoryboard_iPad.storyboard */,
+			);
+			name = common;
 			sourceTree = "<group>";
 		};
 		9BF7E4DE165C222E00481B91 /* Third Party */ = {
@@ -374,7 +414,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BC5387D15FBBDCC003A3BEA /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +450,8 @@
 				9B106AF11649B509000918F6 /* DrawLines.m in Sources */,
 				9BDE6B341653029F0054FE53 /* MainTableView.m in Sources */,
 				9B78E96216868CCB00BB20C1 /* SupportController.m in Sources */,
+				9BCD6C9416B0BC6100BC8549 /* FormModel.m in Sources */,
+				9BCD6C9716B0BE3E00BC8549 /* LabelModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,7 +459,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BC5388015FBBDCC003A3BEA /* XFDLReaderTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,14 +487,6 @@
 				9BC5386415FBBDCB003A3BEA /* en */,
 			);
 			name = MainStoryboard_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		9BC5387B15FBBDCC003A3BEA /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9BC5387C15FBBDCC003A3BEA /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
