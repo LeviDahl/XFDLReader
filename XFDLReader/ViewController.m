@@ -4,9 +4,9 @@
 #import "QuartzCore/QuartzCore.h"
 #import "DrawLines.h"
 #import "AppDelegate.h"
-
+#import "GDataXMLNode.h"
 @interface ViewController ()
-
+@property (nonatomic, strong) IBOutlet UIScrollView *pagingScrollView;
 @end
 BOOL loaded = NO;
  BOOL nextpagetrue;
@@ -16,7 +16,6 @@ BOOL loaded = NO;
     [super viewDidLoad];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     scrollView.delegate = self;
-    [scrollView addSubview:mainview];
     [scrollView setScrollEnabled:YES];
     [scrollView setFrame:CGRectIntegral(scrollView.frame)];
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -25,11 +24,13 @@ BOOL loaded = NO;
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString* path = [documentsDirectory stringByAppendingPathComponent:@"XFDL"];
     path = [path stringByAppendingPathComponent:filepath];
- //   NSLog(@"path %@", path);
+    NSLog(@"path %@", path);
     if([fileManager fileExistsAtPath:path])
     {
         filedata  =  [fileManager contentsAtPath:path];
     }
+    self.pagingScrollView.pagingEnabled = TRUE;
+    
     printController = [UIPrintInteractionController sharedPrintController];
     printController.delegate = self;
     tempdata = [[NSMutableArray alloc] init];
@@ -56,11 +57,24 @@ BOOL loaded = NO;
     self.navigationItem.rightBarButtonItem = doneButton;
    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardWillHideNotification object:nil];
+    NSError *error;
+    GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:test
+                                                           options:0 error:&error];
+    if (doc == nil) {
+    }
+    NSArray *partyMembers = [doc.rootElement elementsForName:@"page"];
+    for (GDataXMLElement *partyMember in partyMembers) {
+        GDataXMLElement *label = [[[[partyMember elementsForName:@"global"] objectAtIndex:0]elementsForName:@"label"] objectAtIndex:0];
+        NSLog(@"pagename = %@", label.stringValue);
+    }
+ /*   NSLog(@"%@", doc.rootElement);
     RXMLElement *rootXML = [RXMLElement elementFromXMLData:test];
    if ([rootXML child:@"globalpage.global.formid.title"] != nil)
    {
        self.navigationItem.title = [rootXML child:@"globalpage.global.formid.title"].text;
    }
+    
+    
     [rootXML iterate:@"*" usingBlock: ^(RXMLElement *pages) {
                NSString *pagenum = [pages attribute:@"sid"];
         if ([pagenum length] >= 6)
@@ -886,6 +900,7 @@ if ([appDelegate.pagename length]== 0)
             NSLog(@"cells %@", celldata);
             NSLog(@"combobox %@", combodata);
             scrollView.contentSize = CGSizeMake(mainview.frame.size.width, mainview.frame.size.height);
+            
         }
         if ([[pages attribute:@"sid"] isEqualToString:@"RESOURCE_PAGE"])
         {
@@ -905,7 +920,7 @@ if ([appDelegate.pagename length]== 0)
             NSLog(@"Resource Page %@", resourcearray);
         }
         }];
-    [self centerScrollViewContents];
+    [self centerScrollViewContents];*/
     }
 -(void)checkBoxClicked:(UIButton *)button {
     NSLog(@"Button Clicked %d", button.tag);
@@ -1324,5 +1339,7 @@ if([textView hasText])
     else
         return YES;
 }
-
+-(void)loadPages {
+    
+}
 @end

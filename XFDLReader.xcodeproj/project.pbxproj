@@ -23,6 +23,7 @@
 		9B6988ED168D501C00F44E20 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B6988EC168D501C00F44E20 /* Default-Portrait@2x~ipad.png */; };
 		9B78E96216868CCB00BB20C1 /* SupportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78E96116868CCB00BB20C1 /* SupportController.m */; };
 		9B9DF862165C378C002EE1B9 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9DF861165C378C002EE1B9 /* MessageUI.framework */; };
+		9BA60F4116B8816700A820BF /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA60F4016B8816700A820BF /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9BC5385215FBBDCB003A3BEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5385115FBBDCB003A3BEA /* UIKit.framework */; };
 		9BC5385415FBBDCB003A3BEA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5385315FBBDCB003A3BEA /* Foundation.framework */; };
 		9BC5385615FBBDCB003A3BEA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5385515FBBDCB003A3BEA /* CoreGraphics.framework */; };
@@ -31,9 +32,6 @@
 		9BC5386215FBBDCB003A3BEA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5386115FBBDCB003A3BEA /* AppDelegate.m */; };
 		9BC5386515FBBDCB003A3BEA /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BC5386315FBBDCB003A3BEA /* MainStoryboard_iPhone.storyboard */; };
 		9BC5386B15FBBDCC003A3BEA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5386A15FBBDCC003A3BEA /* ViewController.m */; };
-		9BC5387315FBBDCC003A3BEA /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5387215FBBDCC003A3BEA /* SenTestingKit.framework */; };
-		9BC5387415FBBDCC003A3BEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5385115FBBDCB003A3BEA /* UIKit.framework */; };
-		9BC5387515FBBDCC003A3BEA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5385315FBBDCB003A3BEA /* Foundation.framework */; };
 		9BC5388E15FBD53B003A3BEA /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5388B15FBD53B003A3BEA /* NSData+Base64.m */; };
 		9BC5388F15FBD53B003A3BEA /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5388D15FBD53B003A3BEA /* NSString+Base64.m */; };
 		9BC5389515FBE0AD003A3BEA /* NSData+GZIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5389415FBE0AD003A3BEA /* NSData+GZIP.m */; };
@@ -47,16 +45,6 @@
 		9BF7E4E6165C24ED00481B91 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF7E4E4165C24ED00481B91 /* Icon-72.png */; };
 		9BF7E4E7165C24ED00481B91 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF7E4E5165C24ED00481B91 /* Icon-72@2x.png */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		9BC5387615FBBDCC003A3BEA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9BC5384415FBBDCB003A3BEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9BC5384C15FBBDCB003A3BEA;
-			remoteInfo = XFDLReader;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9B106A6C16485727000918F6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -78,6 +66,8 @@
 		9B78E96016868CCB00BB20C1 /* SupportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupportController.h; sourceTree = "<group>"; };
 		9B78E96116868CCB00BB20C1 /* SupportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupportController.m; sourceTree = "<group>"; };
 		9B9DF861165C378C002EE1B9 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		9BA60F3F16B8816700A820BF /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
+		9BA60F4016B8816700A820BF /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		9BC5384D15FBBDCB003A3BEA /* XFDLReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XFDLReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BC5385115FBBDCB003A3BEA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9BC5385315FBBDCB003A3BEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -91,7 +81,6 @@
 		9BC5386415FBBDCB003A3BEA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		9BC5386915FBBDCC003A3BEA /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		9BC5386A15FBBDCC003A3BEA /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		9BC5387115FBBDCC003A3BEA /* XFDLReaderTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XFDLReaderTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BC5387215FBBDCC003A3BEA /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		9BC5388A15FBD53B003A3BEA /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		9BC5388B15FBD53B003A3BEA /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
@@ -129,16 +118,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9BC5386D15FBBDCC003A3BEA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9BC5387315FBBDCC003A3BEA /* SenTestingKit.framework in Frameworks */,
-				9BC5387415FBBDCC003A3BEA /* UIKit.framework in Frameworks */,
-				9BC5387515FBBDCC003A3BEA /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -149,6 +128,15 @@
 				9B106A7316486239000918F6 /* RXMLElement.m */,
 			);
 			path = RaptureXML;
+			sourceTree = "<group>";
+		};
+		9BA60F4216B881FC00A820BF /* GDataXML */ = {
+			isa = PBXGroup;
+			children = (
+				9BA60F3F16B8816700A820BF /* GDataXMLNode.h */,
+				9BA60F4016B8816700A820BF /* GDataXMLNode.m */,
+			);
+			name = GDataXML;
 			sourceTree = "<group>";
 		};
 		9BC5384215FBBDCB003A3BEA = {
@@ -164,7 +152,6 @@
 			isa = PBXGroup;
 			children = (
 				9BC5384D15FBBDCB003A3BEA /* XFDLReader.app */,
-				9BC5387115FBBDCC003A3BEA /* XFDLReaderTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -313,6 +300,7 @@
 		9BF7E4DE165C222E00481B91 /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				9BA60F4216B881FC00A820BF /* GDataXML */,
 				9B106A7116486239000918F6 /* RaptureXML */,
 				9BC5389215FBE0AD003A3BEA /* GZIP */,
 				9BC5388915FBD53B003A3BEA /* Base64 */,
@@ -340,25 +328,6 @@
 			productReference = 9BC5384D15FBBDCB003A3BEA /* XFDLReader.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9BC5387015FBBDCC003A3BEA /* XFDLReaderTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9BC5388615FBBDCC003A3BEA /* Build configuration list for PBXNativeTarget "XFDLReaderTests" */;
-			buildPhases = (
-				9BC5386C15FBBDCC003A3BEA /* Sources */,
-				9BC5386D15FBBDCC003A3BEA /* Frameworks */,
-				9BC5386E15FBBDCC003A3BEA /* Resources */,
-				9BC5386F15FBBDCC003A3BEA /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9BC5387715FBBDCC003A3BEA /* PBXTargetDependency */,
-			);
-			name = XFDLReaderTests;
-			productName = XFDLReaderTests;
-			productReference = 9BC5387115FBBDCC003A3BEA /* XFDLReaderTests.octest */;
-			productType = "com.apple.product-type.bundle";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -381,7 +350,6 @@
 			projectRoot = "";
 			targets = (
 				9BC5384C15FBBDCB003A3BEA /* XFDLReader */,
-				9BC5387015FBBDCC003A3BEA /* XFDLReaderTests */,
 			);
 		};
 /* End PBXProject section */
@@ -410,30 +378,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9BC5386E15FBBDCC003A3BEA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		9BC5386F15FBBDCC003A3BEA /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9BC5384915FBBDCB003A3BEA /* Sources */ = {
@@ -452,25 +397,11 @@
 				9B78E96216868CCB00BB20C1 /* SupportController.m in Sources */,
 				9BCD6C9416B0BC6100BC8549 /* FormModel.m in Sources */,
 				9BCD6C9716B0BE3E00BC8549 /* LabelModel.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9BC5386C15FBBDCC003A3BEA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				9BA60F4116B8816700A820BF /* GDataXMLNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		9BC5387715FBBDCC003A3BEA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9BC5384C15FBBDCB003A3BEA /* XFDLReader */;
-			targetProxy = 9BC5387615FBBDCC003A3BEA /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		9BC5385A15FBBDCB003A3BEA /* InfoPlist.strings */ = {
@@ -575,40 +506,6 @@
 			};
 			name = Release;
 		};
-		9BC5388715FBBDCC003A3BEA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/XFDLReader.app/XFDLReader";
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "XFDLReader/XFDLReader-Prefix.pch";
-				INFOPLIST_FILE = "XFDLReaderTests/XFDLReaderTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		9BC5388815FBBDCC003A3BEA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/XFDLReader.app/XFDLReader";
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "XFDLReader/XFDLReader-Prefix.pch";
-				INFOPLIST_FILE = "XFDLReaderTests/XFDLReaderTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -626,15 +523,6 @@
 			buildConfigurations = (
 				9BC5388415FBBDCC003A3BEA /* Debug */,
 				9BC5388515FBBDCC003A3BEA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9BC5388615FBBDCC003A3BEA /* Build configuration list for PBXNativeTarget "XFDLReaderTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9BC5388715FBBDCC003A3BEA /* Debug */,
-				9BC5388815FBBDCC003A3BEA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

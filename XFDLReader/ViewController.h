@@ -22,6 +22,7 @@
 }
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
+
 @property (nonatomic, retain) NSMutableArray *tempdata;
 @property (nonatomic, retain) NSMutableArray *imagedata;
 @property (nonatomic, retain) NSMutableArray *checkdata;
