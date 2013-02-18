@@ -24,6 +24,10 @@
 		9B78E96216868CCB00BB20C1 /* SupportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78E96116868CCB00BB20C1 /* SupportController.m */; };
 		9B9DF862165C378C002EE1B9 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9DF861165C378C002EE1B9 /* MessageUI.framework */; };
 		9BA60F4116B8816700A820BF /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA60F4016B8816700A820BF /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9BC3191016C801D6008DE278 /* LineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC3190F16C801D6008DE278 /* LineModel.m */; };
+		9BC3191316C80CD3008DE278 /* TextViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC3191216C80CD3008DE278 /* TextViewModel.m */; };
+		9BC3191816C8E44C008DE278 /* ImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC3191716C8E44B008DE278 /* ImageModel.m */; };
+		9BC3191B16C8E638008DE278 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BC3191A16C8E637008DE278 /* DataModel.m */; };
 		9BC5385215FBBDCB003A3BEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5385115FBBDCB003A3BEA /* UIKit.framework */; };
 		9BC5385415FBBDCB003A3BEA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5385315FBBDCB003A3BEA /* Foundation.framework */; };
 		9BC5385615FBBDCB003A3BEA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC5385515FBBDCB003A3BEA /* CoreGraphics.framework */; };
@@ -40,6 +44,8 @@
 		9BCD6C9716B0BE3E00BC8549 /* LabelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCD6C9616B0BE3D00BC8549 /* LabelModel.m */; };
 		9BDE6B341653029F0054FE53 /* MainTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BDE6B331653029F0054FE53 /* MainTableView.m */; };
 		9BDE6B4916530EA50054FE53 /* a4.xfdl in Resources */ = {isa = PBXBuildFile; fileRef = 9BDE6B4116530EA30054FE53 /* a4.xfdl */; };
+		9BE7761F16CFFA3D0004A85C /* MainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE7761E16CFFA3D0004A85C /* MainTableViewCell.m */; };
+		9BE7762116CFFACD0004A85C /* MainTableViewCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BE7762016CFFACD0004A85C /* MainTableViewCell~ipad.xib */; };
 		9BF7E4E2165C243900481B91 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF7E4E0165C243800481B91 /* Icon.png */; };
 		9BF7E4E3165C243900481B91 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF7E4E1165C243800481B91 /* Icon@2x.png */; };
 		9BF7E4E6165C24ED00481B91 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BF7E4E4165C24ED00481B91 /* Icon-72.png */; };
@@ -68,6 +74,14 @@
 		9B9DF861165C378C002EE1B9 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		9BA60F3F16B8816700A820BF /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
 		9BA60F4016B8816700A820BF /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
+		9BC3190E16C801D6008DE278 /* LineModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineModel.h; sourceTree = "<group>"; };
+		9BC3190F16C801D6008DE278 /* LineModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineModel.m; sourceTree = "<group>"; };
+		9BC3191116C80CD3008DE278 /* TextViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewModel.h; sourceTree = "<group>"; };
+		9BC3191216C80CD3008DE278 /* TextViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewModel.m; sourceTree = "<group>"; };
+		9BC3191616C8E44B008DE278 /* ImageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageModel.h; sourceTree = "<group>"; };
+		9BC3191716C8E44B008DE278 /* ImageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageModel.m; sourceTree = "<group>"; };
+		9BC3191916C8E637008DE278 /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
+		9BC3191A16C8E637008DE278 /* DataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataModel.m; sourceTree = "<group>"; };
 		9BC5384D15FBBDCB003A3BEA /* XFDLReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XFDLReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BC5385115FBBDCB003A3BEA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9BC5385315FBBDCB003A3BEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -96,6 +110,9 @@
 		9BDE6B321653029E0054FE53 /* MainTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableView.h; sourceTree = "<group>"; };
 		9BDE6B331653029F0054FE53 /* MainTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableView.m; sourceTree = "<group>"; };
 		9BDE6B4116530EA30054FE53 /* a4.xfdl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = a4.xfdl; sourceTree = "<group>"; };
+		9BE7761D16CFFA3D0004A85C /* MainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewCell.h; sourceTree = "<group>"; };
+		9BE7761E16CFFA3D0004A85C /* MainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewCell.m; sourceTree = "<group>"; };
+		9BE7762016CFFACD0004A85C /* MainTableViewCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainTableViewCell~ipad.xib"; sourceTree = "<group>"; };
 		9BF7E4E0165C243800481B91 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		9BF7E4E1165C243800481B91 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		9BF7E4E4165C24ED00481B91 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
@@ -233,8 +250,8 @@
 			isa = PBXGroup;
 			children = (
 				9BCD6C8F16B0BB9C00BC8549 /* controller */,
-				9BCD6C8D16B0BB7D00BC8549 /* view */,
 				9BCD6C8C16B0BB7900BC8549 /* model */,
+				9BCD6C8D16B0BB7D00BC8549 /* view */,
 			);
 			name = forms;
 			sourceTree = "<group>";
@@ -246,6 +263,14 @@
 				9BCD6C9316B0BC6100BC8549 /* FormModel.m */,
 				9BCD6C9516B0BE3D00BC8549 /* LabelModel.h */,
 				9BCD6C9616B0BE3D00BC8549 /* LabelModel.m */,
+				9BC3190E16C801D6008DE278 /* LineModel.h */,
+				9BC3190F16C801D6008DE278 /* LineModel.m */,
+				9BC3191116C80CD3008DE278 /* TextViewModel.h */,
+				9BC3191216C80CD3008DE278 /* TextViewModel.m */,
+				9BC3191616C8E44B008DE278 /* ImageModel.h */,
+				9BC3191716C8E44B008DE278 /* ImageModel.m */,
+				9BC3191916C8E637008DE278 /* DataModel.h */,
+				9BC3191A16C8E637008DE278 /* DataModel.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -262,8 +287,9 @@
 		9BCD6C8E16B0BB9A00BC8549 /* table */ = {
 			isa = PBXGroup;
 			children = (
-				9BDE6B321653029E0054FE53 /* MainTableView.h */,
-				9BDE6B331653029F0054FE53 /* MainTableView.m */,
+				9BE7761A16CFF9310004A85C /* controller */,
+				9BE7761B16CFF93E0004A85C /* model */,
+				9BE7761C16CFF9430004A85C /* view */,
 			);
 			name = table;
 			sourceTree = "<group>";
@@ -295,6 +321,32 @@
 				9B514433164DD5D70049DADD /* MainStoryboard_iPad.storyboard */,
 			);
 			name = common;
+			sourceTree = "<group>";
+		};
+		9BE7761A16CFF9310004A85C /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				9BDE6B321653029E0054FE53 /* MainTableView.h */,
+				9BDE6B331653029F0054FE53 /* MainTableView.m */,
+			);
+			name = controller;
+			sourceTree = "<group>";
+		};
+		9BE7761B16CFF93E0004A85C /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		9BE7761C16CFF9430004A85C /* view */ = {
+			isa = PBXGroup;
+			children = (
+				9BE7761D16CFFA3D0004A85C /* MainTableViewCell.h */,
+				9BE7761E16CFFA3D0004A85C /* MainTableViewCell.m */,
+				9BE7762016CFFACD0004A85C /* MainTableViewCell~ipad.xib */,
+			);
+			name = view;
 			sourceTree = "<group>";
 		};
 		9BF7E4DE165C222E00481B91 /* Third Party */ = {
@@ -334,7 +386,7 @@
 		9BC5384415FBBDCB003A3BEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = LeviMac;
 			};
 			buildConfigurationList = 9BC5384715FBBDCB003A3BEA /* Build configuration list for PBXProject "XFDLReader" */;
@@ -375,6 +427,7 @@
 				9B6988E9168D4F9A00F44E20 /* Default-Landscape~ipad.png in Resources */,
 				9B6988EB168D4FDC00F44E20 /* Default~iphone.png in Resources */,
 				9B6988ED168D501C00F44E20 /* Default-Portrait@2x~ipad.png in Resources */,
+				9BE7762116CFFACD0004A85C /* MainTableViewCell~ipad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +451,11 @@
 				9BCD6C9416B0BC6100BC8549 /* FormModel.m in Sources */,
 				9BCD6C9716B0BE3E00BC8549 /* LabelModel.m in Sources */,
 				9BA60F4116B8816700A820BF /* GDataXMLNode.m in Sources */,
+				9BC3191016C801D6008DE278 /* LineModel.m in Sources */,
+				9BC3191316C80CD3008DE278 /* TextViewModel.m in Sources */,
+				9BC3191816C8E44C008DE278 /* ImageModel.m in Sources */,
+				9BC3191B16C8E638008DE278 /* DataModel.m in Sources */,
+				9BE7761F16CFFA3D0004A85C /* MainTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +488,9 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -458,6 +519,9 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
