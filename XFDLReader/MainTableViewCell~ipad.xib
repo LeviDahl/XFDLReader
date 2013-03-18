@@ -39,7 +39,7 @@
 					<object class="IBUILabel" id="481945979">
 						<reference key="NSNextResponder" ref="379912821"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{101, 20}, {333, 21}}</string>
+						<string key="NSFrame">{{141, 20}, {333, 21}}</string>
 						<reference key="NSSuperview" ref="379912821"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="312832980"/>
@@ -71,7 +71,7 @@
 					<object class="IBUILabel" id="312832980">
 						<reference key="NSNextResponder" ref="379912821"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{101, 49}, {333, 21}}</string>
+						<string key="NSFrame">{{141, 49}, {333, 21}}</string>
 						<reference key="NSSuperview" ref="379912821"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -99,7 +99,7 @@
 					<object class="IBUIButton" id="756741144">
 						<reference key="NSNextResponder" ref="379912821"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{55, 31}, {29, 31}}</string>
+						<string key="NSFrame">{{95, 31}, {29, 31}}</string>
 						<reference key="NSSuperview" ref="379912821"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="481945979"/>
@@ -108,7 +108,6 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<int key="IBUIButtonType">2</int>
 						<object class="NSColor" key="IBUIHighlightedTitleColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -165,6 +164,14 @@
 					</object>
 					<int key="connectionID">13</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">selectedButton</string>
+						<reference key="source" ref="379912821"/>
+						<reference key="destination" ref="756741144"/>
+					</object>
+					<int key="connectionID">16</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -189,9 +196,9 @@
 						<int key="objectID">4</int>
 						<reference key="object" ref="379912821"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="481945979"/>
 							<reference ref="312832980"/>
 							<reference ref="756741144"/>
+							<reference ref="481945979"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -226,7 +233,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">15</int>
+			<int key="maxID">16</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

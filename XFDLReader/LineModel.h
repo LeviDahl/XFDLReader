@@ -13,5 +13,5 @@
 @property (strong, nonatomic) NSMutableDictionary *location;
 @property (strong, nonatomic) NSString *name;
 
--(id) initWithParameters:(GDataXMLElement *)element;
+-(id) initWithParameters:(GDataXMLElement *)element andVersion:(NSString *)version;
 @end

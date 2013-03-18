@@ -9,15 +9,17 @@
 #import "TextViewModel.h"
 
 @implementation TextViewModel
--(id) initWithParameters:(GDataXMLElement *)element {
+-(id) initWithParameters:(GDataXMLElement *)element andVersion:(NSString *)version{
     if (self){
         self.location = [[NSMutableDictionary alloc] init];
         self.font = [[NSMutableDictionary alloc] init];
-        self.name = [element attributeForName:@"sid"].stringValue;
+            self.name = [element attributeForName:@"sid"].stringValue;
         if ([[element elementsForName:@"value"] objectAtIndex:0] != NULL)
         {
             self.value = [(GDataXMLElement *)[[element elementsForName:@"value"] objectAtIndex:0] stringValue];
         }
+        if ([version isEqualToString:@"6.5"])
+        {
         for (GDataXMLElement *ae in [[[element elementsForName:@"itemlocation"] objectAtIndex:0] elementsForName:@"ae"])
         {
             NSArray *values = [ae elementsForName:@"ae"];
@@ -39,9 +41,55 @@
             [self.font setObject:[(GDataXMLElement *)[values objectAtIndex:1] stringValue] forKey:@"fontsize"];
             [self.font setObject:[(GDataXMLElement *)[values objectAtIndex:2] stringValue] forKey:@"fonttype"];
         }
-        self.field = [[UITextView alloc] init];
+        }
+    
+    else if ([version isEqualToString:@"7.7"] || [version isEqualToString:@"7.6"])
+    {
+        GDataXMLElement *ae = [[element elementsForName:@"itemlocation"] objectAtIndex:0];
+           GDataXMLElement *font = [[element elementsForName:@"fontinfo"] objectAtIndex:0];
+        if ([[[ae elementsForName:@"x"] objectAtIndex:0] stringValue])
+        {
+            [self.location setObject:[[[ae elementsForName:@"x"] objectAtIndex:0] stringValue] forKey:@"x"];
+        }
+        if ([[[ae elementsForName:@"y"] objectAtIndex:0] stringValue])
+        {
+            [self.location setObject:[[[ae elementsForName:@"y"] objectAtIndex:0] stringValue] forKey:@"y"];
+        }
+        if ([[[ae elementsForName:@"height"] objectAtIndex:0] stringValue])
+        {
+            [self.location setObject:[[[ae elementsForName:@"height"] objectAtIndex:0] stringValue] forKey:@"height"];
+        }
+        if ([[[ae elementsForName:@"width"] objectAtIndex:0] stringValue])
+        {
+            [self.location setObject:[[[ae elementsForName:@"width"] objectAtIndex:0] stringValue] forKey:@"width"];
+        }
+        if ([[[font elementsForName:@"fontname"] objectAtIndex:0] stringValue])
+        {
+            [self.font setObject:[[[font elementsForName:@"fontname"] objectAtIndex:0] stringValue] forKey:@"fontname"];
+        }
+        else
+        {
+            [self.font setObject:@"Arial" forKey:@"fontname"];
+        }
+        if ([[[font elementsForName:@"size"] objectAtIndex:0] stringValue])
+        {
+            [self.font setObject:[[[font elementsForName:@"size"] objectAtIndex:0] stringValue] forKey:@"fontsize"];
+        }
+        else
+        {
+            [self.font setObject:@"7" forKey:@"fontsize"];
+        }
+        if ([[[font elementsForName:@"effect"] objectAtIndex:0] stringValue])
+        {
+            [self.font setObject:[[[font elementsForName:@"effect"] objectAtIndex:0] stringValue] forKey:@"fonttype"];
+        }
+
+    
         
-        NSLog(@"field values: name:%@ value:%@ location:%@", self.name, self.value, self.location);
+       
+    }
+            self.field = [[UITextView alloc] init];
+         NSLog(@"field values: name:%@ value:%@ location:%@", self.name, self.value, self.location);
     }
     return self;
 }

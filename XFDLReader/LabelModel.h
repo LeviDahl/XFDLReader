@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSMutableDictionary *font;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *justify;
--(id) initWithParameters:(GDataXMLElement *)element;
+@property (nonatomic) BOOL visible;
+-(id) initWithParameters:(GDataXMLElement *)element andVersion:(NSString *)version;
 
 @end

@@ -12,19 +12,25 @@
 #import "TextViewModel.h"
 #import "ImageModel.h"
 #import "DataModel.h"
+#import "CheckBoxModel.h"
 @implementation FormModel
--(id) initWithParameters:(GDataXMLElement *) elements{
+-(id) initWithParameters:(GDataXMLElement *) elements andVersion:(NSString *)version{
 if (self){
     self.labels = [[NSMutableArray alloc] init];
     self.lines = [[NSMutableArray alloc] init];
-        self.fields = [[NSMutableArray alloc] init];
-     self.images = [[NSMutableArray alloc] init];
+    self.fields = [[NSMutableArray alloc] init];
+    self.images = [[NSMutableArray alloc] init];
     self.data = [[NSMutableArray alloc] init];
+    self.checkboxes = [[NSMutableArray alloc] init];
+       self.comboboxes = [[NSMutableArray alloc] init];
+    if ([version isEqualToString:@"6.5"])
+    {
+   
     self.form_name =[elements attributeForName:@"sid"].stringValue;
     self.page_orientation = [[[[[elements elementsForName:@"global"] objectAtIndex:0] elementsForName:@"vfd_pagesize"] objectAtIndex:0]stringValue];
     
     for (GDataXMLElement *labels in [elements elementsForName:@"label"]) {
-            if (![[labels attributeForName:@"sid"].stringValue isEqualToString:@"TOP"] && ![[labels attributeForName:@"sid"].stringValue isEqualToString:@"LEFT"] && ![[labels attributeForName:@"sid"].stringValue isEqualToString:@"NEXT"] && ![[labels attributeForName:@"sid"].stringValue isEqualToString:@"PREVIOUS"] && ![[labels attributeForName:@"sid"].stringValue isEqualToString:@"WIZARD"] && ![[labels attributeForName:@"sid"].stringValue isEqualToString:@"TOOLBAR_VERSION"] && ![[labels attributeForName:@"sid"].stringValue isEqualToString:@"TOOLBAR_GLOBALS"]) {
+            if (![[labels attributeForName:@"sid"].stringValue isEqualToString:@"TOP"] && ![[labels attributeForName:@"sid"].stringValue isEqualToString:@"LEFT"] && ![[labels attributeForName:@"sid"].stringValue isEqualToString:@"NEXT"] && ![[labels attributeForName:@"sid"].stringValue isEqualToString:@"PREVIOUS"] && ![[labels attributeForName:@"sid"].stringValue isEqualToString:@"WIZARD"] && ![[labels attributeForName:@"sid"].stringValue isEqualToString:@"TOOLBAR_VERSION"] && ![[labels attributeForName:@"sid"].stringValue isEqualToString:@"TOOLBAR_GLOBALS"] && ![[labels attributeForName:@"sid"].stringValue isEqualToString:@"VE_COMMENT1"]) {
                
             
             if ([labels elementsForName:@"image"] != nil)
@@ -34,7 +40,7 @@ if (self){
             }
             else
             {
-                LabelModel *label = [[LabelModel alloc] initWithParameters:labels];
+                LabelModel *label = [[LabelModel alloc] initWithParameters:labels andVersion:version];
                 [self.labels addObject:label];
             }
             }
@@ -44,13 +50,13 @@ if (self){
             }
       }
         for (GDataXMLElement *lines in [elements elementsForName:@"line"]) {
-                    LineModel *line = [[LineModel alloc] initWithParameters:lines];
+                  LineModel *line = [[LineModel alloc] initWithParameters:lines andVersion:version];
                     [self.lines addObject:line];
                 }
       for (GDataXMLElement *fields in [elements elementsForName:@"field"]) {
-      if (![[fields attributeForName:@"sid"].stringValue isEqualToString:@"RTEDNM"] && ![[fields attributeForName:@"sid"].stringValue isEqualToString:@"SSN_PRINT"] )
+      if (![[fields attributeForName:@"sid"].stringValue isEqualToString:@"RTEDNM"] && ![[fields attributeForName:@"sid"].stringValue isEqualToString:@"SSN_PRINT"] &&  ![[fields attributeForName:@"sid"].stringValue isEqualToString:@"VE_COMMENT1"] )
       {
-          TextViewModel *field = [[TextViewModel alloc] initWithParameters:fields];
+          TextViewModel *field = [[TextViewModel alloc] initWithParameters:fields andVersion:version];
         [self.fields addObject:field];
       }
     }
@@ -58,8 +64,48 @@ if (self){
        DataModel *data = [[DataModel alloc] initWithParameters:datas];
         [self.data addObject:data];
     }
+        for (GDataXMLElement *checks in [elements elementsForName:@"check"]) {
+            CheckBoxModel *check = [[CheckBoxModel alloc] initWithParameters:checks andVersion:version];
+            [self.checkboxes addObject:check];
+        }
+        for (GDataXMLElement *combobox in [elements elementsForName:@"combobox"]) {
+            CheckBoxModel *combo = [[CheckBoxModel alloc] initWithParameters:combobox andVersion:version];
+            [self.comboboxes addObject:combo];
+        }
+
+ NSLog(@"labels: %lu, lines: %lu fields: %lu images: %lu data: %lu pagename:%@ checkboxes:%lu version: %@", (unsigned long)[self.labels count], (unsigned long)[self.lines count], (unsigned long)[self.fields count], (unsigned long)[self.images count], (unsigned long)[self.data count],[elements attributeForName:@"sid"].stringValue, (unsigned long)[self.checkboxes count], version);
 }
-      NSLog(@"labels: %lu, lines: %lu fields: %lu images: %lu data: %lu pagename:%@", (unsigned long)[self.labels count], (unsigned long)[self.lines count], (unsigned long)[self.fields count], (unsigned long)[self.images count], (unsigned long)[self.data count],[elements attributeForName:@"sid"].stringValue);
+    else if ([version isEqualToString:@"7.7"]||[version isEqualToString:@"7.6"])
+    {
+        NSLog(@"new version");
+        for (GDataXMLElement *labels in [elements elementsForName:@"label"]) {
+            LabelModel *label = [[LabelModel alloc] initWithParameters:labels andVersion:version];
+            [self.labels addObject:label];
+            
+        }
+        for (GDataXMLElement *lines in [elements elementsForName:@"line"]) {
+            LineModel *line = [[LineModel alloc] initWithParameters:lines andVersion:version];
+            [self.lines addObject:line];
+        }
+        for (GDataXMLElement *fields in [elements elementsForName:@"field"]) {
+            if (![[fields attributeForName:@"sid"].stringValue isEqualToString:@"RTEDNM"] && ![[fields attributeForName:@"sid"].stringValue isEqualToString:@"SSN_PRINT"] &&  ![[fields attributeForName:@"sid"].stringValue isEqualToString:@"VE_COMMENT1"] )
+            {
+                TextViewModel *field = [[TextViewModel alloc] initWithParameters:fields andVersion:version];
+                [self.fields addObject:field];
+            }
+        }
+        for (GDataXMLElement *checks in [elements elementsForName:@"check"]) {
+            CheckBoxModel *check = [[CheckBoxModel alloc] initWithParameters:checks andVersion:version];
+            [self.checkboxes addObject:check];
+        }
+              NSLog(@"labels: %lu, lines: %lu fields: %lu images: %lu data: %lu pagename:%@ checkboxes:%lu version:%@", (unsigned long)[self.labels count], (unsigned long)[self.lines count], (unsigned long)[self.fields count], (unsigned long)[self.images count], (unsigned long)[self.data count],[elements attributeForName:@"sid"].stringValue, (unsigned long)[self.checkboxes count], version);
+        NSLog(@"strange version");
+    }
+    else
+    {
+        NSLog(@"What version is this? %@", version);
+    }
+}
     return self;
 }
 -(NSString *)description {

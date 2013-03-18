@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "MainTableView.h"
 @implementation AppDelegate
-@synthesize linedata, window, pagename;
+@synthesize window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {  NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -26,14 +26,26 @@
 			NSLog(@"Main Directory Already Exists, No Action = %@", error);
 		}
 	}
-  
+    
+    
     path = [path stringByAppendingPathComponent:@"a4.xfdl"];
     if(![fileManager fileExistsAtPath:path])
     {
         NSData *data = [NSData dataWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/a4.xfdl"]];
         [data writeToFile:path atomically:YES];
     }
-    pagename = [[NSString alloc] init];
+    NSString *PDFPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"PDFs"];
+
+    if (![fileManager fileExistsAtPath:PDFPath])	//Does directory already exist?
+	{
+		if (![[NSFileManager defaultManager] createDirectoryAtPath:PDFPath
+									   withIntermediateDirectories:NO
+														attributes:nil
+															 error:&error])
+		{
+			NSLog(@"Main Directory Already Exists, No Action = %@", error);
+		}
+	}
     return YES;
 
 }

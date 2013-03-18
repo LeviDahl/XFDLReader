@@ -17,9 +17,9 @@
 @property (nonatomic, strong) NSMutableArray *fields;
 @property (nonatomic, strong) NSMutableArray *images;
 @property (nonatomic, strong) NSMutableArray *data;
-@property (nonatomic, strong) NSDictionary *checkboxes;
-@property (nonatomic, strong) NSDictionary *comboboxes;
-- (id) initWithParameters:(GDataXMLElement *) elements;
+@property (nonatomic, strong) NSMutableArray *checkboxes;
+@property (nonatomic, strong) NSMutableArray *comboboxes;
+-(id) initWithParameters:(GDataXMLElement *) elements andVersion:(NSString *)version;
 
 @end
 @interface PageModel : NSObject

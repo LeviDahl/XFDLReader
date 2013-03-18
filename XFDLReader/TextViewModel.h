@@ -16,5 +16,5 @@
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) UITextView *field;
 
--(id) initWithParameters:(GDataXMLElement *)element;
+-(id) initWithParameters:(GDataXMLElement *)element andVersion:(NSString *)version;
 @end

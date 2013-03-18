@@ -6,8 +6,8 @@
 #import "AppDelegate.h"
 #import "GDataXMLNode.h"
 #import "FormModel.h"
+
 @interface ViewController ()
-@property (nonatomic, strong) IBOutlet UIScrollView *pagingScrollView;
 @property (nonatomic, strong) GDataXMLDocument *doc;
 @property (nonatomic, strong) PageModel *pages;
 @property (nonatomic, strong) NSMutableArray *pageArray;
@@ -16,6 +16,13 @@
 @property (nonatomic, strong) UIView *toolbarView;
 @property (nonatomic, strong) NSString *fileHeader;
 @property (nonatomic, strong) NSString *formNumber;
+@property (nonatomic, strong) NSString *formTitle;
+@property (nonatomic, strong) NSString *version;
+@property (nonatomic, strong) NSString *saveFileName;
+@property (nonatomic, strong) NSString *emailFileName;
+@property (nonatomic, strong) NSMutableDictionary *namespaces;
+
+
 @end
 BOOL loaded = NO;
  BOOL nextpagetrue;
@@ -24,16 +31,13 @@ BOOL loaded = NO;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.pageArray = [[NSMutableArray alloc] init];
+    self.namespaces = [[NSMutableDictionary alloc] init];
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
     NSData *filedata;
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString* path = [documentsDirectory stringByAppendingPathComponent:@"XFDL"];
-    path = [path stringByAppendingPathComponent:filepath];
-   // NSLog(@"path %@", path);
-    if([fileManager fileExistsAtPath:path])
+    NSLog(@"path123 %@", filepath);
+    if([fileManager fileExistsAtPath:filepath])
     {
-        filedata  =  [fileManager contentsAtPath:path];
+        filedata  =  [fileManager contentsAtPath:filepath];
     }
     printController = [UIPrintInteractionController sharedPrintController];
     printController.delegate = self;
@@ -42,79 +46,101 @@ BOOL loaded = NO;
     pickerview.delegate = self;
     pickerview.showsSelectionIndicator = YES;
     NSString *myData = [[NSString alloc] initWithData:filedata encoding:NSUTF8StringEncoding];
-    self.fileHeader = [myData substringToIndex:51];
-    NSString *newStr = [myData substringWithRange:NSMakeRange(51, [myData length]-51)];
-    NSData *decodedData = [NSData dataWithBase64EncodedString:newStr];
+    NSRange range = [myData rangeOfString:@"\n"];
+    self.fileHeader = [myData substringToIndex:range.location];
+    NSString *rawData = [myData substringFromIndex:range.location];
+    NSLog(@"File Header: %@",self.fileHeader);
+    if (![self.fileHeader isEqualToString:@"application/x-xfdl;content-encoding=\"asc-gzip\""])
+    {
+    // = [myData substringToIndex:52];
+   // NSString *newStr = [myData substringWithRange:NSMakeRange(51, [myData length]-51)];
+    NSData *decodedData = [NSData dataWithBase64EncodedString:rawData];
     NSData *test = [decodedData gunzippedData];
-  //  NSString *rawXML = [[NSString alloc] initWithData:test encoding:NSASCIIStringEncoding];
-  //  NSLog(@"RAW %@", rawXML);
+   NSString *rawXML = [[NSString alloc] initWithData:test encoding:NSASCIIStringEncoding];
+    NSLog(@"RAW %@", rawXML);
        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionPane)];
     self.navigationItem.rightBarButtonItem = doneButton;
     NSError *error;
     self.doc = [[GDataXMLDocument alloc] initWithData:test options:0 error:&error];
+    NSArray *namespaceArray = self.doc.rootElement.namespaces;
+    GDataXMLNode *node;
+       for (GDataXMLNode *namespace in namespaceArray)
+       {
+           [self.namespaces setObject:namespace.stringValue forKey:[NSString stringWithFormat:@"ns%lu",(unsigned long)[namespaceArray indexOfObject:namespace]]];
+            if ([namespace.name isEqualToString:@"xfdl"])
+           {
+               node = namespace;
+           }
+       }
+    self.version = [node.stringValue lastPathComponent];
+     NSLog(@"version %@", self.version);
     self.pages = [[PageModel alloc] init];
-    NSArray *titles = [self.doc nodesForXPath:@"/_def_ns:XFDL/_def_ns:globalpage/_def_ns:global/_def_ns:xmlmodel/_def_ns:instances" error:&error];
+
+    if ([self.version isEqualToString:@"6.5"])
+    {
+                NSArray *titles = [self.doc nodesForXPath:@"/_def_ns:XFDL/_def_ns:globalpage/_def_ns:global/_def_ns:xmlmodel/_def_ns:instances" error:&error];
+        if ([titles count] > 0) {
    self.formNumber = [[[[[[[[[[titles objectAtIndex:0] childAtIndex:0] children] objectAtIndex:0] elementsForName:@"title"]  objectAtIndex:0] elementsForName:@"documentnbr"] objectAtIndex:0]attributeForName:@"number"] stringValue];
-    NSArray *partyMembers = [self.doc.rootElement elementsForName:@"page"];
+        }
+        NSArray *formTitle = [self.doc nodesForXPath:@"/_def_ns:XFDL/_def_ns:globalpage/_def_ns:global/_def_ns:formid/_def_ns:title" error:&error];
+        if ([formTitle count] > 0) {
+            GDataXMLElement *title= [formTitle objectAtIndex:0];
+            self.formTitle = title.stringValue;
+        }
+        else
+        {
+            self.formTitle = self.formNumber;
+        }
+    }
+    else if ([self.version isEqualToString:@"6.0"])
+    { NSArray *titles = [self.doc nodesForXPath:@"/_def_ns:XFDL/_def_ns:globalpage/_def_ns:global/_def_ns:formid/_def_ns:title" error:&error];
+        GDataXMLElement *title= [titles objectAtIndex:0];
+        self.formTitle = title.stringValue;
+       
+        NSArray *titlecheck = [self.doc nodesForXPath:@"/_def_ns:XFDL/_def_ns:globalpage/_def_ns:global" error:&error];
+        GDataXMLElement *formNum = [[[[[[[titlecheck objectAtIndex:0] elementsForName:@"custom:form_metadata"] objectAtIndex:0] elementsForName:@"custom:shorttitle"] objectAtIndex:0] elementsForName:@"custom:number"] objectAtIndex:0];
+         self.formNumber = formNum.stringValue;
+        NSLog(@"form number %@", self.formNumber);
+    }
+    self.title = self.formTitle;
+       NSArray *partyMembers = [self.doc.rootElement elementsForName:@"page"];
     scrollView.delegate = self;
     [scrollView setScrollEnabled:YES];
-    int count = 0;
+  
        for (GDataXMLElement *partyMember in partyMembers) {
-       
-      
            if (![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"INTRO"] && ![[[partyMember attributeForName:@"sid"]  stringValue] isEqualToString:@"PREPOP"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_3"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_1"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"PREPOP2"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_4"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_6"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_7"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_8"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_9"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_10"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_11"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_12"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_13"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_14"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_15"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_16"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_16a"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_17"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_18"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_19"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_20"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"CODE_TEMPLATE"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"ENCLOSURES"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"THIRTY_DAY_WAIVER"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"NON_CONCUR"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"RELIEF_FOR_CAUSE_BY_OFFICIAL"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"RESOURCE_PAGE"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_5"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_6a"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_21"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_22"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_23"]  && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_24"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_25"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_26"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_27"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_28"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_29"]  && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_30"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_31"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"WIZ_32"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"TEMPLATE"])
            {
                if ([self.formNumber isEqualToString:@"2166-8-1"] || [self.formNumber isEqualToString:@"2166-8"])
                {
                    if (![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"PAGE3"] && ![[[partyMember attributeForName:@"sid"] stringValue] isEqualToString:@"PAGE4"]) {
                          [self.pages.pages addObject:partyMember];
-                      [self loadPages];
-                       [self loadFormGlobalsCount:count];
-                       [self drawLabels];
-                       [self drawLines];
-                       [self drawTextFields];
-                       [self drawImages];
-                       count++;
-                       innerScrollView.delegate = self;
-                       CGFloat scalewidth =  innerScrollView.frame.size.width /innerScrollView.contentSize.width;
-                       CGFloat scaleheight =  innerScrollView.frame.size.height /innerScrollView.contentSize.height;
-                       CGFloat minScale = MIN(scalewidth, scaleheight);
-                       innerScrollView.minimumZoomScale = minScale;
-                       innerScrollView.maximumZoomScale = 2.0f;
-                       innerScrollView.zoomScale = minScale;
-                       [innerScrollView addSubview:mainview];
-                       [scrollView addSubview:innerScrollView];
                    }
                }
                else
                {     [self.pages.pages addObject:partyMember];
-                   [self loadPages];
-                   [self loadFormGlobalsCount:count];
-                   [self drawLabels];
-                   [self drawLines];
-                   [self drawTextFields];
-                   [self drawImages];
-                   count++;
-                   innerScrollView.delegate = self;
-                   CGFloat scalewidth =  innerScrollView.frame.size.width /innerScrollView.contentSize.width;
-                   CGFloat scaleheight =  innerScrollView.frame.size.height /innerScrollView.contentSize.height;
-                   CGFloat minScale = MIN(scalewidth, scaleheight);
-                   innerScrollView.minimumZoomScale = minScale;
-                   innerScrollView.maximumZoomScale = 2.0f;
-                   innerScrollView.zoomScale = minScale;
-                   [innerScrollView addSubview:mainview];
-                   [scrollView addSubview:innerScrollView];
-}
+                
+               }
            }
     }
-    scrollView.frame = CGRectMake(0, 0, innerScrollView.frame.size.width, [UIScreen mainScreen].bounds.size.width);
-    self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(153,scrollView.frame.size.width,38,36)];
-    [self.pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
-    self.pageControl.enabled = TRUE;
-    self.pageControl.numberOfPages = count;
-    self.pageControl.backgroundColor = [UIColor blackColor];
-   scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * count, scrollView.frame.size.height);
+    [self loadPages];
+    
+    scrollView.frame = CGRectMake(0, 0, innerScrollView.frame.size.width, innerScrollView.frame.size.height);
+     scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * [self.pages.pages count], scrollView.frame.size.height);
+ //   self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(153,scrollView.frame.size.width,scrollView.frame.size.height-20,36)];
+        
+//    [self.pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
+ //   self.pageControl.enabled = TRUE;
+   // self.pageControl.numberOfPages = [self.pages.pages count];
+  //  self.pageControl.backgroundColor = [UIColor blackColor];
+  
     NSLog(@"pages %@", [[[self.pages.pages objectAtIndex:0] attributeForName:@"sid"] stringValue]);
+    }
+    else
+    {
+      UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Unsupported File" message:@"Sorry, but this file is currently unsupported. Please check the support forum for more information." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert.tag = 9;
+        [alert show];
+    }
     }
 - (void)changePage {
     // update the scroll view to the appropriate page
@@ -124,6 +150,9 @@ BOOL loaded = NO;
     frame.size = self.scrollView.frame.size;
     [self.scrollView scrollRectToVisible:frame animated:YES];
 }
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
     // Update the page when more than 50% of the previous/next page is visible
     CGFloat pageWidth = self.mainview.frame.size.width;
@@ -131,21 +160,24 @@ BOOL loaded = NO;
     self.pageControl.currentPage = page;
     NSLog(@"page %d", page+1);
 }
+
 -(void)checkBoxClicked:(UIButton *)button {
-    NSLog(@"Button Clicked %d", button.tag);
     if ([button isSelected])
     {
-      
         [button setSelected:NO];
     }
     else{
         [button setSelected:YES];
     }
-    NSLog(@"button checked %c",[button isSelected]);
- 
+    NSLog(@"button checked %c",[button isSelected] );
+    [button setTitle:@"" forState:UIControlStateNormal];
+    [button setTitle:@"X" forState:UIControlStateSelected];
 }
-/*
+
 -(void)comboBoxClicked:(UIButton *)button {
+    NSLog(@"Combobox button clicked");
+}
+    /*
     [pickerarray removeAllObjects];
     NSLog(@"picker string %@", [[combodata objectAtIndex:button.tag] objectAtIndex:6]);
  if (![[[[combodata objectAtIndex:button.tag] objectAtIndex:6] substringToIndex:8] isEqualToString:@"RESOURCE"])
@@ -199,30 +231,28 @@ BOOL loaded = NO;
     mainview.userInteractionEnabled = TRUE;
 }
 -(BOOL)textViewShouldEndEditing:(UITextView *)textView {
+    scrollView.userInteractionEnabled = TRUE;
     if([textView hasText])
     {
         textView.layer.borderWidth = 0.0f;
         textView.backgroundColor = [UIColor clearColor];
-        [scrollView setScrollEnabled:YES];
     }
     [toolbar removeFromSuperview];
     return YES;
 }
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
     //  [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-    [scrollView setScrollEnabled:NO];
+    scrollView.userInteractionEnabled = FALSE;
     // mainview.userInteractionEnabled = FALSE;
     if (toolbar)
     {
         toolbar = nil;
     }
     toolbar = [[UIToolbar alloc] init];
-    CGSize size = [UIScreen mainScreen].bounds.size;
-    if ([[UIDevice currentDevice] orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice] orientation] == UIInterfaceOrientationLandscapeRight)
-    {
-        size = CGSizeMake(size.height, size.width);
-    }
-    toolbar.frame =  toolbar.frame = CGRectMake(0,0,size.width, 44.0);
+    NSLog(@"orientation123 %d",[[UIApplication sharedApplication] statusBarOrientation]);
+  
+    
+    toolbar.frame =  toolbar.frame = CGRectMake(0,0,SCREEN_WIDTH, 44.0);
     
     UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemDone
                                                                                 target: self
@@ -238,11 +268,29 @@ BOOL loaded = NO;
     [self.toolbarView addSubview:toolbar];
     self.toolbarView.frame = CGRectMake(0,0,toolbar.frame.size.width,44.0);
     NSLog(@"toolbarframe %@", NSStringFromCGRect(self.toolbarView.frame));
-    mainview.userInteractionEnabled = NO;
-     [textView setInputAccessoryView:self.toolbarView];
+    [textView setInputAccessoryView:self.toolbarView];
     return YES;
 }
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    CGFloat width;
+    CGFloat height;
+    if (mainview.frame.size.width > SCREEN_WIDTH)
+    {
+        width = mainview.frame.size.width;
+    }
+    else
+    {
+        width = SCREEN_WIDTH;
+    }
+    if (mainview.frame.size.height > SCREEN_HEIGHT)
+    {
+        height= mainview.frame.size.height;
+    }
+    else
+    {
+        height = SCREEN_HEIGHT;
+    }
+    innerScrollView.frame = CGRectMake(self.innerScrollView.frame.origin.x, self.scrollView.frame.origin.y, width, height);
    pickerview.frame = CGRectMake(0, scrollView.frame.size.height-200, scrollView.frame.size.width, 180.0f);
     CGFloat pageWidth = self.scrollView.frame.size.width;
     int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
@@ -256,7 +304,7 @@ BOOL loaded = NO;
     
 }
 - (void)centerScrollViewContents {
-    CGSize boundsSize = self.innerScrollView.bounds.size;
+    CGSize boundsSize = innerScrollView.bounds.size;
     CGRect contentsFrame = self.mainview.frame;
     if (contentsFrame.size.width < boundsSize.width) {
         contentsFrame.origin.x = (boundsSize.width - contentsFrame.size.width) / 2.0f;
@@ -270,9 +318,10 @@ BOOL loaded = NO;
     }
     self.mainview.frame = contentsFrame;
 }
+
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollViews {
    CGFloat pageWidth = self.innerScrollView.frame.size.width;
-    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth)+1;
     self.pageControl.currentPage = page;
     NSArray *temparray= [scrollView subviews];
     NSMutableArray *temp2 = [[NSMutableArray alloc] init];
@@ -280,13 +329,14 @@ BOOL loaded = NO;
     {
         [temp2 addObject:tempscroll];
     }
-     NSLog(@"scrollviews%@", temp2);
+     NSLog(@"scrollviews%@ %d", temp2, page);
        if ([temp2 count] > 0)
     {
        if ([[[temp2 objectAtIndex:page ] subviews] count] > 0)
        {
         if ([[[[temp2 objectAtIndex:page ] subviews] objectAtIndex:0] isKindOfClass:[DrawLines class]])
         { NSLog(@"subviews%@", [[[temp2 objectAtIndex:page ] subviews] objectAtIndex:0]);
+            
             return [[[temp2 objectAtIndex:page ] subviews] objectAtIndex:0];
         }
         else
@@ -297,6 +347,7 @@ BOOL loaded = NO;
         else
         {
             return nil;
+            
         }
     }
     else
@@ -312,7 +363,8 @@ BOOL loaded = NO;
     // Release any retained subviews of the main view.
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
-        return YES;
+   
+    return YES;
 }
 -(BOOL)textViewShouldReturn:(UITextView*)textField {
     NSInteger nextTag = textField.tag + 1;
@@ -339,6 +391,7 @@ BOOL loaded = NO;
     return @"title";
         
 }
+
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     NSLog(@"You selected this: ");
     [pickerview removeFromSuperview];
@@ -358,8 +411,6 @@ BOOL loaded = NO;
     mainview.userInteractionEnabled = YES;
 }
 -(void)saveToDocumentsWithFileName:(NSString*)aFilename {
-    // Creates a mutable data object for updating with binary data, like a byte array
-   
     NSMutableData *pdfData = [NSMutableData data];
     mainview.backgroundColor = [UIColor whiteColor];
     NSArray *array =  [scrollView subviews];
@@ -371,7 +422,19 @@ BOOL loaded = NO;
         {
             if ([views isKindOfClass:[DrawLines class]])
             {
-                NSLog(@"printframe %@", NSStringFromCGRect(views.bounds));
+                if ([[views subviews] count] > 0)
+                {
+                    for (UITextView *text in [views subviews])
+                    {
+                        NSLog(@"view %@", text);
+                        if ([text isKindOfClass:[UITextView class]])
+                        {
+                            text.layer.borderWidth = 0.0;
+                        }
+                    }
+                }
+            
+            NSLog(@"printframe %@", NSStringFromCGRect(views.bounds));
                 UIGraphicsBeginPDFPageWithInfo(views.bounds, nil);
                 CGContextRef pdfContext = UIGraphicsGetCurrentContext();
                 [views.layer renderInContext:pdfContext];
@@ -383,29 +446,55 @@ BOOL loaded = NO;
     // Retrieves the document directories from the iOS device
     NSArray* documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES);
     NSString* documentDirectory = [documentDirectories objectAtIndex:0];
-    NSString* documentDirectoryFilename = [documentDirectory stringByAppendingPathComponent:aFilename];
+    
+    NSString* documentDirectoryFilename = [[documentDirectory stringByAppendingPathComponent:@"PDFs" ] stringByAppendingPathComponent:aFilename];
     
     // instructs the mutable data object to write its context to a file on disk
     [pdfData writeToFile:documentDirectoryFilename atomically:YES];
+    self.emailFileName = documentDirectoryFilename;
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"PDF Saved" message:@"Your PDF has been saved. Would you like to email it?" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel", nil];
+    alert.tag = 7;
+    [alert show];
+    for (UIScrollView *innerViews in array)
+    {
+        for (UIView *views in [innerViews subviews])
+        {
+            if ([views isKindOfClass:[DrawLines class]])
+            {
+                if ([[views subviews] count] > 0)
+                {
+                    for (UITextView *text in [views subviews])
+                    {
+                        NSLog(@"view %@", text);
+                        if ([text isKindOfClass:[UITextView class]])
+                        {
+                            text.layer.borderWidth = 1.0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+-(void)sendEmail:(NSString *)path {
     MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
     mailer.mailComposeDelegate = self;
     [mailer setSubject:@"Sending Form"];
-    [mailer addAttachmentData:[NSData dataWithContentsOfFile:documentDirectoryFilename]
-                     mimeType:@"application/pdf"
-                     fileName:aFilename];
-    [self presentModalViewController:mailer animated:YES];
+    NSData *pdfData = [[NSFileManager defaultManager] contentsAtPath:path];
+    [mailer addAttachmentData:pdfData mimeType:@"application/pdf" fileName:[path lastPathComponent]];
+      [self presentModalViewController:mailer animated:YES];
 }
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
     
     [self dismissModalViewControllerAnimated:YES];
-    mainview.backgroundColor = backgroundColor;
+//    mainview.backgroundColor = backgroundColor;
 }
 -(void)actionPane {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Form Options"
                                                                  delegate:self
                                                         cancelButtonTitle:@"Cancel"
                                                    destructiveButtonTitle:nil
-                                                        otherButtonTitles:@"Email to PDF", @"Print",@"Save XFDL File", nil];
+                                                        otherButtonTitles:@"Save as PDF", @"Print",@"Save XFDL File", nil];
         [actionSheet showInView:scrollView];
         loaded = NO;
     
@@ -415,18 +504,31 @@ BOOL loaded = NO;
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
             switch (buttonIndex) {
                 case 0:
-                    [self saveToDocumentsWithFileName:[NSString stringWithFormat:@"%@.pdf", [filepath stringByDeletingPathExtension]]];
+                    [self saveToDocumentsWithFileName:[NSString stringWithFormat:@"%@.pdf", [[filepath lastPathComponent] stringByDeletingPathExtension]]];
                     break;
                 case 1:
                     [self printButton];
                     break;
                 case 2:
-                    [self saveFile];
+                    [self saveButtonPressed];
                     break;
                 default:
                     break;
             }
     }
+-(void)willPresentAlertView:(UIAlertView *)alertView {
+   if (alertView.tag == 5)
+   {
+    for (UIView *view in alertView.subviews) {
+        if ([view isKindOfClass:[UITextField class]]||
+            [view isKindOfClass:[UIButton class]] || view.frame.size.height==31) {
+            CGRect rect=view.frame;
+            rect.origin.y += 65;
+            view.frame = rect;
+        }
+    }
+   }
+}
 -(void)printButton{
     NSMutableData *pdfData = [NSMutableData data];
     innerScrollView.backgroundColor = [UIColor whiteColor];
@@ -438,6 +540,17 @@ BOOL loaded = NO;
         {
             if ([views isKindOfClass:[DrawLines class]])
             {
+                if ([[views subviews] count] > 0)
+                {
+                for (UITextView *text in [views subviews])
+                {
+                    NSLog(@"view %@", text);
+                    if ([text isKindOfClass:[UITextView class]])
+                    {
+                    text.layer.borderWidth = 0.0;
+                    }
+                }
+                }
                 NSLog(@"printframe %@", NSStringFromCGRect(views.bounds));
                 UIGraphicsBeginPDFPageWithInfo(views.bounds, nil);
                 CGContextRef pdfContext = UIGraphicsGetCurrentContext();
@@ -446,13 +559,6 @@ BOOL loaded = NO;
         }
     }
       UIGraphicsEndPDFContext();
- 
-    // Retrieves the document directories from the iOS device
-  /*  NSArray* documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES);
-    NSString* documentDirectory = [documentDirectories objectAtIndex:0];
-    NSString* documentDirectoryFilename = [documentDirectory stringByAppendingPathComponent:aFilename];*/
-    
-    // instructs the mutable data object to write its context to a file on disk
     void (^completionHandler)(UIPrintInteractionController *, BOOL, NSError *) =
     ^(UIPrintInteractionController *printController, BOOL completed, NSError *error) {
         if (!completed && error) {
@@ -461,6 +567,26 @@ BOOL loaded = NO;
         if (completed)
         {
             //mainview.backgroundColor = backgroundColor;
+            for (UIScrollView *innerViews in array)
+            {
+            for (UIView *views in [innerViews subviews])
+            {
+                if ([views isKindOfClass:[DrawLines class]])
+                {
+                    if ([[views subviews] count] > 0)
+                    {
+                        for (UITextView *text in [views subviews])
+                        {
+                            NSLog(@"view %@", text);
+                            if ([text isKindOfClass:[UITextView class]])
+                            {
+                                text.layer.borderWidth = 1.0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         }
     };
     printController.printingItem = pdfData;
@@ -486,22 +612,47 @@ BOOL loaded = NO;
         return YES;
 }
 -(void)loadPages {
-     for (GDataXMLElement *page in self.pages.pages) {
-         
+    int i = 0;
+    for (GDataXMLElement *page in self.pages.pages) {
+         self.form = [[FormModel alloc] initWithParameters:page andVersion:self.version];
+        [self.pageArray addObject:self.form];
+        [self loadFormGlobalsCount:i];
+         [self drawLabels];
+         [self drawLines];
+         [self drawTextFields];
+         [self drawImages];
+        [self drawCheckBoxes];
+        [self drawComboBoxes];
+         innerScrollView.delegate = self;
+         CGFloat scalewidth =  innerScrollView.frame.size.width  /innerScrollView.contentSize.width;
+         CGFloat scaleheight =  innerScrollView.frame.size.height /innerScrollView.contentSize.height;
+         CGFloat minScale = MIN(scalewidth, scaleheight);
+        innerScrollView.minimumZoomScale = minScale;
+         innerScrollView.maximumZoomScale = 2.0f;
+         innerScrollView.zoomScale = minScale;
+         [innerScrollView addSubview:mainview];
+         [scrollView addSubview:innerScrollView];
+        innerScrollView.pagingEnabled = NO;
          scrollView.pagingEnabled = YES;
-    self.form = [[FormModel alloc] initWithParameters:page];
-         [self.pageArray addObject:self.form];
-         
+        [self centerScrollViewContents];
+        i++;
      }
 }
 -(void)drawLabels {
     for (LabelModel *labelData in self.form.labels)
     {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectIntegral(CGRectMake(roundf([[labelData.location objectForKey:@"x"] floatValue] /4 *3), roundf([[labelData.location objectForKey:@"y"] floatValue] /4 *3),roundf([[labelData.location objectForKey:@"width"] floatValue] /4 *3),roundf([[labelData.location objectForKey:@"height"] floatValue] /4 *3)))];
+        if (labelData.visible)
+        {
+     /*  if ([labelData.location objectForKey:@"width"] !=nil)
+       {*/
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectIntegral(CGRectMake(roundf([[labelData.location objectForKey:@"x"] floatValue] /4 *3), roundf([[labelData.location objectForKey:@"y"] floatValue] /4 *3),roundf([[labelData.location objectForKey:@"width"] floatValue] /4 *3),roundf([[labelData.location objectForKey:@"height"] floatValue] /4 *3)))];
+       //}
+            
         label.text = labelData.value;
         label.backgroundColor = [UIColor clearColor];
-        label.font = [UIFont fontWithName:[labelData.font objectForKey:@"fontname"] size:[[labelData.font objectForKey:@"fontsize" ]  intValue]];
-        label.minimumFontSize = [[labelData.font objectForKey:@"fontsize" ] intValue];
+        label.font = [UIFont fontWithName:[labelData.font objectForKey:@"fontname"] size:[[labelData.font objectForKey:@"fontsize"]  intValue]];
+            NSLog(@"label font %@",labelData.font);
+        label.minimumFontSize = [[labelData.font objectForKey:@"fontsize"] intValue];
         label.numberOfLines = 0;
         if ([labelData.justify isEqualToString:@"center"])
         {
@@ -513,6 +664,7 @@ BOOL loaded = NO;
 
         [label sizeToFit];
         [mainview addSubview:label];
+        }
     }
 }
 -(void)drawLines {
@@ -522,9 +674,10 @@ BOOL loaded = NO;
 -(void)drawTextFields {
     for (TextViewModel *fields in self.form.fields)
     {int count = 0;
-        fields.field .frame =CGRectIntegral(CGRectMake(roundf([[fields.location objectForKey:@"x"] floatValue] /4 *3), roundf([[fields.location objectForKey:@"y"] floatValue] /4 *3),roundf([[fields.location objectForKey:@"width"] floatValue] /4 *3),roundf([[fields.location objectForKey:@"height"] floatValue] /4 *3)));
+        fields.field.frame =CGRectIntegral(CGRectMake(roundf([[fields.location objectForKey:@"x"] floatValue] /4 *3), roundf([[fields.location objectForKey:@"y"] floatValue] /4 *3),roundf([[fields.location objectForKey:@"width"] floatValue] /4 *3),roundf([[fields.location objectForKey:@"height"] floatValue] /4 *3)));
         fields.field.delegate = self;
         fields.field.text = fields.value;
+        fields.field.autocorrectionType = UITextAutocorrectionTypeYes;
         if ([fields.value length] == 0)
         {
             fields.field.layer.borderWidth = 1.0;
@@ -554,11 +707,63 @@ BOOL loaded = NO;
        }
     }
 }
--(void)loadFormGlobalsCount: (int) count {
+-(void)drawCheckBoxes {
+    for (CheckBoxModel *check in self.form.checkboxes)
+    {
+    check.checkbox = [UIButton buttonWithType:UIButtonTypeCustom];
+        check.checkbox.titleLabel.font = [UIFont fontWithName:[check.font objectForKey:@"fontname"] size:[[check.font objectForKey:@"fontsize"] floatValue]];
+        CGSize size = [@"A" sizeWithFont:check.checkbox.titleLabel.font constrainedToSize:CGSizeMake(9999, 9999) lineBreakMode:NSLineBreakByWordWrapping];
+        NSString *width = [NSString stringWithFormat:@"%.0f",size.height];
+          NSString *height = [NSString stringWithFormat:@"%.0f",size.height];
+        if ([check.location objectForKey:@"height"] == nil)
+    {
+        [check.location setObject:height forKey:@"height"];
+    }
+        if ([check.location objectForKey:@"width"] == nil)
+        {
+            [check.location setObject:width forKey:@"width"];
+        }
+        check.checkbox.frame = CGRectIntegral(CGRectMake(roundf([[check.location objectForKey:@"x"] floatValue] /4 *3), roundf([[check.location objectForKey:@"y"] floatValue] /4 *3),roundf([[check.location objectForKey:@"width"] floatValue] /4 *3),roundf([[check.location objectForKey:@"height"] floatValue] /4 *3)));
+        check.checkbox.backgroundColor = [UIColor whiteColor];
+        [check.checkbox setTitleColor:[UIColor blackColor] forState:UIControlStateNormal | UIControlStateSelected];
+        check.checkbox.layer.borderWidth = 1.0f;
+        [check.checkbox addTarget:self action:@selector(checkBoxClicked:) forControlEvents:UIControlEventTouchUpInside];
+        if ([check.value isEqualToString:@"off"])
+        {
+            [check.checkbox setSelected:NO];
+        }
+        else {
+            [check.checkbox setSelected:YES];
+                    }
+        if (size.width > check.checkbox.frame.size.width || size.height > check.checkbox.frame.size.height)
+        {
+            
+        }
+        [check.checkbox setTitle:@"" forState:UIControlStateNormal];
+        [check.checkbox setTitle:@"X" forState:UIControlStateSelected];
+        check.checkbox.titleLabel.adjustsFontSizeToFitWidth = YES;
+     //   [check.checkbox sizeToFit];
+        [mainview addSubview:check.checkbox];
+    }
+}
+-(void)drawComboBoxes {
+    for (ComboBoxModel *comboboxes in self.form.comboboxes)
+    {int count = 0;
+       // UIPickerView *combobox = [[UIPickerView alloc] init];
+        UIButton *combobox = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                combobox.frame = CGRectIntegral(CGRectMake(roundf([[comboboxes.location objectForKey:@"x"] floatValue] /4 *3), roundf([[comboboxes.location objectForKey:@"y"] floatValue] /4 *3),roundf([[comboboxes.location objectForKey:@"width"] floatValue] /4 *3),roundf([[comboboxes.location objectForKey:@"height"] floatValue] /4 *3)));
+        // NSLog(@"expected font: %@, %d, actual font: %@", [fields.font objectForKey:@"fontname"], [[fields.font objectForKey:@"fontsize" ] intValue], field.font);
+        [combobox addTarget:self action:@selector(comboBoxClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [mainview addSubview:combobox];
+        count++;
+    }
+}
+-(void)loadFormGlobalsCount:(int) count {
     mainview = [[DrawLines alloc] init];
     innerScrollView = [[UIScrollView alloc] init];
     NSError *error;
-NSArray *titles = [self.doc  nodesForXPath:@"/_def_ns:XFDL/_def_ns:globalpage/_def_ns:global/_def_ns:printsettings/_def_ns:dialog/_def_ns:orientation" error:&error];
+    
+NSArray *titles = [self.doc nodesForXPath:@"/_def_ns:XFDL/_def_ns:globalpage/_def_ns:global/_def_ns:printsettings/_def_ns:dialog/_def_ns:orientation" error:&error];
   if ([titles count] > 0)
   {
      GDataXMLElement *orientation = [titles objectAtIndex:0];
@@ -566,8 +771,13 @@ NSArray *titles = [self.doc  nodesForXPath:@"/_def_ns:XFDL/_def_ns:globalpage/_d
     {
        
            NSLog(@"title %@", orientation.stringValue);
-       
+        if (isiPad())
+       {
         mainview.frame = CGRectIntegral(CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height));
+       }
+       else {
+            mainview.frame = CGRectIntegral(CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width *2+50,[UIScreen mainScreen].bounds.size.height*2+50));
+       }
 
     }
     else{
@@ -577,9 +787,22 @@ NSArray *titles = [self.doc  nodesForXPath:@"/_def_ns:XFDL/_def_ns:globalpage/_d
   }
    else
    {
-         mainview.frame = CGRectIntegral(CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height));
+       if (isiPad())
+       {
+           mainview.frame = CGRectIntegral(CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height));
+       }
+       else {
+             mainview.frame = CGRectIntegral(CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width *2+50,[UIScreen mainScreen].bounds.size.height*2+50));
+       }
    }
+    if (isiPhone())
+    {
+        innerScrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    }
+    else
+    {
     innerScrollView.frame = CGRectIntegral(CGRectMake(mainview.frame.size.width * count,mainview.frame.origin.y, mainview.frame.size.width, mainview.frame.size.height));
+    }
     NSLog(@"fmainviewframe %@", NSStringFromCGRect(innerScrollView.frame));
   //  innerScrollView.frame = mainview.frame;
     innerScrollView.contentSize = mainview.frame.size;
@@ -616,75 +839,147 @@ NSArray *titles = [self.doc  nodesForXPath:@"/_def_ns:XFDL/_def_ns:globalpage/_d
         }
     }*/
 }
+
+-(void)saveButtonPressed {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Name your file" message:@"\n" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK",@"Use Current Filename", nil];
+    alert.transform=CGAffineTransformMakeScale(1.0, 0.75);
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    alert.tag = 5;
+    [alert show];
+
+}
+-(void)alertView:(UIAlertView *)alertView
+clickedButtonAtIndex:(NSInteger)buttonIndex {
+if (alertView.tag == 5)
+{
+    if (buttonIndex == 1)
+    {
+         UITextField *fileName = [alertView textFieldAtIndex:0];
+        if ([fileName.text length] > 0)
+        self.saveFileName = [fileName.text stringByAppendingPathExtension:@"xfdl"];
+    }
+    else if (buttonIndex == 2)
+    {
+        self.saveFileName = filepath;
+    }
+    if (buttonIndex != 0)
+    {
+    [self saveFile];
+    }
+}
+   else if (alertView.tag == 7)
+    {
+        if (buttonIndex == 0)
+        {
+            [self sendEmail:self.emailFileName];
+        }
+    }
+    else if (alertView.tag == 9)
+    {
+       
+
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
 -(void)saveFile  {
-  
-    NSMutableArray *temp = [[NSMutableArray alloc] init];
-   /* if ([self.formNumber isEqualToString:@"2166-8-1"] || [self.formNumber isEqualToString:@"2166-8"]) {
+    if ([self.saveFileName length] > 0)
+    {
+       if ([self.formNumber isEqualToString:@"2166-8-1"] || [self.formNumber isEqualToString:@"2166-8"]) {
         NSError *error;
         NSArray *titles = [self.doc nodesForXPath:@"/_def_ns:XFDL/_def_ns:globalpage/_def_ns:global/_def_ns:xmlmodel/_def_ns:instances" error:&error];
-        GDataXMLElement *instances = [[[titles objectAtIndex:0] children] objectAtIndex:7];
+            GDataXMLElement *instances = [[[titles objectAtIndex:0] children] objectAtIndex:7];
         NSLog(@"insta%@",instances);
         for (FormModel *form in self.pageArray)
-        for (TextViewModel *fieldcheck in form.fields) {
-            NSString *temps = [fieldcheck.field text];
-            NSLog(@"temps %@", temps);
-            for (GDataXMLNode *mains in [[[instances elementsForName:@"MAIN_DATA"] objectAtIndex:0]children])
-              if ([fieldcheck.name isEqualToString:mains.name])
-            { 
-                [mains setStringValue:fieldcheck.field.text];
-                NSLog(@"mains%@",mains);
+            for (TextViewModel *fieldcheck in form.fields) {
+                for (GDataXMLNode *mains in [[[instances elementsForName:@"MAIN_DATA"] objectAtIndex:0]children])
+                    if ([fieldcheck.name isEqualToString:mains.name])
+                    { 
+                        [mains setStringValue:fieldcheck.field.text];
+                    }
             }
-     }
-    }
-    else
-    {*/
-        NSArray *array = [[self.doc rootElement] elementsForName:@"page"];
-    
+        }
+    NSArray *array = self.pages.pages;
+    int i = 0;
     for (GDataXMLElement *element in array) {
-        NSLog(@"root %@", [element attributeForName:@"sid"]);
+         FormModel *currentPage = [self.pageArray objectAtIndex:i];
         for (GDataXMLElement *f in [element elementsForName:@"field"]) {
-            NSLog(@"root %@", [f attributeForName:@"sid"]);
-            FormModel *currentPage = [self.pageArray objectAtIndex:[array indexOfObject:element]];
+           
             for (TextViewModel *fieldcheck in currentPage.fields)
-                {
-                    NSString *temps = [fieldcheck.field text];
+            {
+                NSString *temps = [fieldcheck.field text];
                 NSLog(@"%@ for sid:%@",[fieldcheck.field text], fieldcheck.name);
                 if ([fieldcheck.name isEqualToString:[f attributeForName:@"sid"].stringValue]) {
                     NSLog(@"field check succeeded, file sid %@", [f attributeForName:@"sid"].stringValue);
-                        if ([[f elementsForName:@"value"] objectAtIndex:0] == nil)
-                        {
-                            GDataXMLElement * textValue =
-                            [GDataXMLNode elementWithName:@"value" stringValue:temps];
-                            [f addChild:textValue];
-                        }
-                        else
-                        {[f removeChild:[[f elementsForName:@"value" ] objectAtIndex:0]];
-                            GDataXMLElement * textValue =
-                            [GDataXMLNode elementWithName:@"value" stringValue:temps];
-                            [f addChild:textValue];
-                        }
+                    if ([[f elementsForName:@"value"] objectAtIndex:0] == nil)
+                    {
+                        GDataXMLElement * textValue = [GDataXMLNode elementWithName:@"value"stringValue:temps];
+                        [f addChild:textValue];
                     }
-                
+                    else
+                    {
+                        [f removeChild:[[f elementsForName:@"value" ] objectAtIndex:0]];
+                        GDataXMLElement * textValue = [GDataXMLNode elementWithName:@"value" stringValue:temps];
+                        [f addChild:textValue];
+                    }
+                }
                 else
                 {
                     NSLog(@"field check did not succeed tag %@ and tag %@", fieldcheck.name, [f attributeForName:@"sid"].stringValue);
                 }
             }
-        
         }
+          for (GDataXMLElement *f in [element elementsForName:@"check"]) {
+              for (CheckBoxModel *check in currentPage.checkboxes) {
+                  NSString *temps;
+                  if ([check.checkbox isSelected])
+                  {
+                      temps = @"on";
+                  }
+                  else
+                  {
+                      temps = @"off";
+                  }
+                  if ([[f elementsForName:@"value"] objectAtIndex:0] == nil)
+                  {
+                      GDataXMLElement *textValue = [GDataXMLNode elementWithName:@"value"stringValue:temps];
+                      [f addChild:textValue];
+                       NSLog(@"TEMPS TEMPS 2%@", temps);
+                  }
+                  else
+                  {
+                      [f removeChild:[[f elementsForName:@"value"] objectAtIndex:0]];
+                      GDataXMLElement *textValue = [GDataXMLNode elementWithName:@"value" stringValue:temps];
+                      [f addChild:textValue];
+                       NSLog(@"TEMPS TEMPS 3 %@", temps);
+                  }
+                  NSLog(@"TEMPS TEMPS %@", temps);
+              }
+          
+          }
+        i++;
     }
- //   }
- NSLog(@"test1234%@", temp);
     NSData *encoded = [self.doc.XMLData gzippedData];
     NSString *zipped = [encoded base64EncodedString];
     NSString *fullfile = [NSString stringWithFormat:@"%@\n%@", self.fileHeader,zipped];
     NSArray* documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES);
     NSString* documentDirectory = [[documentDirectories objectAtIndex:0] stringByAppendingPathComponent:@"XFDL"];
-    NSString* documentDirectoryFilename = [documentDirectory stringByAppendingPathComponent:@"test.xfdl"];
-    
-    // instructs the mutable data object to write its context to a file on disk
-    [fullfile writeToFile:documentDirectoryFilename atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-
+   NSString* documentDirectoryFilename = [documentDirectory stringByAppendingPathComponent:self.saveFileName];
+        NSError *error;
+    if ([fullfile writeToFile:documentDirectoryFilename atomically:YES encoding:NSUTF8StringEncoding error:&error])
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"File Saved Successfully!" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+                              }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Something went wrong." message:@"Sorry, there was an error saving your file. Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+                              }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot save without filename" message:@"Please choose a filename and try again" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
 }
-
-   @end
+@end
