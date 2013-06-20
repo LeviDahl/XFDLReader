@@ -13,7 +13,6 @@
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import "DrawLines.h"
-
 @interface ViewController : UIViewController <UIScrollViewDelegate, UITextViewDelegate, UIAlertViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate, UIPrintInteractionControllerDelegate, UIAlertViewDelegate>
 {
     NSString *filepath;
@@ -24,7 +23,7 @@
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) UIScrollView *innerScrollView;
 @property (nonatomic, retain) DrawLines *mainview;
-@property (nonatomic, retain) NSMutableArray *fielddata;
+@property (nonatomic, retain) NSMutableArray *pickerarray;
 @property (nonatomic, retain) NSString *filepath;
 @property (nonatomic, retain) UIToolbar *toolbar;
 @property (nonatomic, retain) UIPickerView *pickerview;

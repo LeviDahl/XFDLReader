@@ -13,6 +13,8 @@
 #import "ImageModel.h"
 #import "DataModel.h"
 #import "CheckBoxModel.h"
+#import "CellModel.h"
+#import "ComboBoxModel.h"
 @implementation FormModel
 -(id) initWithParameters:(GDataXMLElement *) elements andVersion:(NSString *)version{
 if (self){
@@ -22,7 +24,8 @@ if (self){
     self.images = [[NSMutableArray alloc] init];
     self.data = [[NSMutableArray alloc] init];
     self.checkboxes = [[NSMutableArray alloc] init];
-       self.comboboxes = [[NSMutableArray alloc] init];
+    self.comboboxes = [[NSMutableArray alloc] init];
+    self.cells = [[NSMutableArray alloc] init];
     if ([version isEqualToString:@"6.5"])
     {
    
@@ -69,11 +72,15 @@ if (self){
             [self.checkboxes addObject:check];
         }
         for (GDataXMLElement *combobox in [elements elementsForName:@"combobox"]) {
-            CheckBoxModel *combo = [[CheckBoxModel alloc] initWithParameters:combobox andVersion:version];
+            ComboBoxModel *combo = [[ComboBoxModel alloc] initWithParameters:combobox andVersion:version];
             [self.comboboxes addObject:combo];
         }
+        for (GDataXMLElement *cells in [elements elementsForName:@"cell"]) {
+            CellModel *cell = [[CellModel alloc] initWithParameters:cells andVersion:version];
+            [self.cells addObject:cell];
+        }
+        NSLog(@"labels: %lu, lines: %lu fields: %lu images: %lu data: %lu pagename:%@ checkboxes:%lu cells:%lu version:%@", (unsigned long)[self.labels count], (unsigned long)[self.lines count], (unsigned long)[self.fields count], (unsigned long)[self.images count], (unsigned long)[self.data count],[elements attributeForName:@"sid"].stringValue, (unsigned long)[self.checkboxes count],(unsigned long)[self.cells count], version);
 
- NSLog(@"labels: %lu, lines: %lu fields: %lu images: %lu data: %lu pagename:%@ checkboxes:%lu version: %@", (unsigned long)[self.labels count], (unsigned long)[self.lines count], (unsigned long)[self.fields count], (unsigned long)[self.images count], (unsigned long)[self.data count],[elements attributeForName:@"sid"].stringValue, (unsigned long)[self.checkboxes count], version);
 }
     else if ([version isEqualToString:@"7.7"]||[version isEqualToString:@"7.6"])
     {
@@ -98,7 +105,7 @@ if (self){
             CheckBoxModel *check = [[CheckBoxModel alloc] initWithParameters:checks andVersion:version];
             [self.checkboxes addObject:check];
         }
-              NSLog(@"labels: %lu, lines: %lu fields: %lu images: %lu data: %lu pagename:%@ checkboxes:%lu version:%@", (unsigned long)[self.labels count], (unsigned long)[self.lines count], (unsigned long)[self.fields count], (unsigned long)[self.images count], (unsigned long)[self.data count],[elements attributeForName:@"sid"].stringValue, (unsigned long)[self.checkboxes count], version);
+        NSLog(@"labels: %lu, lines: %lu fields: %lu images: %lu data: %lu pagename:%@ checkboxes:%lu version: %@", (unsigned long)[self.labels count], (unsigned long)[self.lines count], (unsigned long)[self.fields count], (unsigned long)[self.images count], (unsigned long)[self.data count],[elements attributeForName:@"sid"].stringValue, (unsigned long)[self.checkboxes count], version);
         NSLog(@"strange version");
     }
     else

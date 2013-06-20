@@ -116,7 +116,7 @@
         NSArray *temp = [filelist objectAtIndex:indexPath.section];
         if ([temp count]> 0)
         {
-    cell.fileLabel.text = [[filelist objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+            cell.fileLabel.text = [[filelist objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
             NSString *path = [[docsDirectory stringByAppendingPathComponent:[self.sections objectAtIndex:indexPath.section]]stringByAppendingPathComponent:[[filelist objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
             NSLog(@"path %@",path);
             NSDictionary *dict = [fileManager attributesOfItemAtPath:path error:NULL];

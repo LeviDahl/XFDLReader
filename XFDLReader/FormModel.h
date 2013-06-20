@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSMutableArray *data;
 @property (nonatomic, strong) NSMutableArray *checkboxes;
 @property (nonatomic, strong) NSMutableArray *comboboxes;
+@property (nonatomic, strong) NSMutableArray *cells;
 -(id) initWithParameters:(GDataXMLElement *) elements andVersion:(NSString *)version;
 
 @end

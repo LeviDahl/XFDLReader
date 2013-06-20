@@ -13,11 +13,14 @@
 -(id) initWithParameters:(GDataXMLElement *)element andVersion:(NSString *)version {
     if (self){
         self.location = [[NSMutableDictionary alloc] init];
-        
         if ([version isEqualToString:@"6.5"])
         {
             self.name = [element attributeForName:@"sid"].stringValue;
-            
+            if ([[element elementsForName:@"group"] objectAtIndex:0] != NULL)
+            {
+                self.group = [(GDataXMLElement *)[[element elementsForName:@"group"] objectAtIndex:0] stringValue];
+            }
+
             for (GDataXMLElement *ae in [[[element elementsForName:@"itemlocation"] objectAtIndex:0] elementsForName:@"ae"])
             {
                 NSArray *values = [ae elementsForName:@"ae"];
@@ -32,7 +35,7 @@
                     [self.location setObject:[(GDataXMLElement *)[values objectAtIndex:2] stringValue] forKey:@"height"];
                 }
             }
-            NSLog(@"combobox location:%@", self.location);
+            NSLog(@"combobox location:%@, group: %@", self.location, self.group);
         }
         }
     return self;

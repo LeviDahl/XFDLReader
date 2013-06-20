@@ -14,6 +14,7 @@
 #import "ImageModel.h"
 #import "CheckBoxModel.h"
 #import "ComboBoxModel.h"
+#import "CellModel.h"
 @class DrawLines;
 
 @interface DrawLines : UIView

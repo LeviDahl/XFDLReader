@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "GDataXMLNode.h"
 @interface CellModel : NSObject
+@property (strong, nonatomic) NSString *group;
+@property (strong, nonatomic) NSString *value;
+@property (strong, nonatomic) NSString *name;
 
+-(id) initWithParameters:(GDataXMLElement *)element andVersion:(NSString *)version;
 @end

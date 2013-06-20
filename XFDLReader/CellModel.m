@@ -9,5 +9,29 @@
 #import "CellModel.h"
 
 @implementation CellModel
-
+-(id)initWithParameters:(GDataXMLElement *)element andVersion:(NSString *)version {
+    if (self)
+    {
+       
+        self.name = [element attributeForName:@"sid"].stringValue;
+        if ([[element elementsForName:@"value"] objectAtIndex:0] != NULL)
+        {
+            self.value = [(GDataXMLElement *)[[element elementsForName:@"value"] objectAtIndex:0] stringValue];
+        }
+        else
+        {
+            self.value = @"";
+        }
+        if ([[element elementsForName:@"group"] objectAtIndex:0] != NULL)
+        {
+            self.group = [(GDataXMLElement *)[[element elementsForName:@"group"] objectAtIndex:0] stringValue];
+        }
+        else
+        {
+            self.group = @"";
+        }
+         NSLog(@"cell values: name:%@ value:%@, group: %@", self.name, self.value, self.group);
+    }
+    return self;
+}
 @end

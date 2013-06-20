@@ -21,17 +21,19 @@
 @property (nonatomic, strong) NSString *saveFileName;
 @property (nonatomic, strong) NSString *emailFileName;
 @property (nonatomic, strong) NSMutableDictionary *namespaces;
-
+@property (nonatomic, strong) NSMutableArray *forms;
 
 @end
 BOOL loaded = NO;
  BOOL nextpagetrue;
 @implementation ViewController
-@synthesize scrollView, mainview, fielddata, toolbar, filepath, pickerview, pickerstring,  printController, backgroundColor, innerScrollView;
+@synthesize scrollView, mainview, toolbar, filepath, pickerview, pickerstring,  printController, backgroundColor, innerScrollView, pickerarray;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.pageArray = [[NSMutableArray alloc] init];
+    self.forms = [[NSMutableArray alloc] init];
     self.namespaces = [[NSMutableDictionary alloc] init];
+    pickerarray = [[NSMutableArray alloc] init];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSData *filedata;
     NSLog(@"path123 %@", filepath);
@@ -50,14 +52,18 @@ BOOL loaded = NO;
     self.fileHeader = [myData substringToIndex:range.location];
     NSString *rawData = [myData substringFromIndex:range.location];
     NSLog(@"File Header: %@",self.fileHeader);
-    if (![self.fileHeader isEqualToString:@"application/x-xfdl;content-encoding=\"asc-gzip\""])
+ //   NSString *newStr;
+  //  if (![self.fileHeader isEqualToString:@"application/x-xfdl;content-encoding=\"asc-gzip\""])
     {
     // = [myData substringToIndex:52];
-   // NSString *newStr = [myData substringWithRange:NSMakeRange(51, [myData length]-51)];
+       // newStr = [myData substringWithRange:NSMakeRange(51, [myData length]-51)];
+        
+            NSLog(@"RAW %@", rawData);
     NSData *decodedData = [NSData dataWithBase64EncodedString:rawData];
+    
     NSData *test = [decodedData gunzippedData];
-   NSString *rawXML = [[NSString alloc] initWithData:test encoding:NSASCIIStringEncoding];
-    NSLog(@"RAW %@", rawXML);
+//   NSString *rawXML = [[NSString alloc] initWithData:test encoding:NSASCIIStringEncoding];
+  //  NSLog(@"RAW %@", rawXML);
        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionPane)];
     self.navigationItem.rightBarButtonItem = doneButton;
     NSError *error;
@@ -135,12 +141,12 @@ BOOL loaded = NO;
   
     NSLog(@"pages %@", [[[self.pages.pages objectAtIndex:0] attributeForName:@"sid"] stringValue]);
     }
-    else
+  /*  else
     {
       UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Unsupported File" message:@"Sorry, but this file is currently unsupported. Please check the support forum for more information." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         alert.tag = 9;
         [alert show];
-    }
+    }*/
     }
 - (void)changePage {
     // update the scroll view to the appropriate page
@@ -176,10 +182,29 @@ BOOL loaded = NO;
 
 -(void)comboBoxClicked:(UIButton *)button {
     NSLog(@"Combobox button clicked");
-}
-    /*
     [pickerarray removeAllObjects];
-    NSLog(@"picker string %@", [[combodata objectAtIndex:button.tag] objectAtIndex:6]);
+    
+    CGFloat pageWidth = self.scrollView.frame.size.width;
+      int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    FormModel *form = [self.forms objectAtIndex:page];
+    ComboBoxModel *combo = [form.comboboxes objectAtIndex:button.tag];
+    NSArray *string = [combo.group componentsSeparatedByString:@"."];
+    if ([[string objectAtIndex:0] isEqualToString:form.description])
+    {
+        combo.group = [string objectAtIndex:1];
+    }
+for (CellModel *cellGroup in form.cells)
+{
+    if ([combo.group isEqualToString:cellGroup.group])
+    {
+        NSLog(@"%@ MATCH!",cellGroup.group);
+        [pickerarray addObject:cellGroup.value];
+    }
+}
+
+    
+    
+  /*  NSLog(@"picker string %@", [[combodata objectAtIndex:button.tag] objectAtIndex:6]);
  if (![[[[combodata objectAtIndex:button.tag] objectAtIndex:6] substringToIndex:8] isEqualToString:@"RESOURCE"])
  {
         NSLog(@"cell data %@", [[celldata objectAtIndex:0] objectAtIndex:1]);
@@ -193,14 +218,14 @@ BOOL loaded = NO;
     [pickerarray addObject:[NSString stringWithFormat:@"%d", button.tag]];
     button.tag = arc4random();
     [pickerarray addObject:[NSString stringWithFormat:@"%d", button.tag]];
-    [pickerview reloadAllComponents];
-        NSLog(@"picker titles %@", pickerarray);
-        [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    [pickerview reloadAllComponents];*/
       pickerview.frame = CGRectMake(0, scrollView.frame.size.height-190, scrollView.frame.size.width, 180.0f);
         [scrollView addSubview:pickerview];
-     mainview.userInteractionEnabled = NO;
+ //    mainview.userInteractionEnabled = NO;
+    [pickerview reloadAllComponents];
+
  }
-    else
+ /*   else
     {
             NSLog(@"Resource button clicked");
 
@@ -385,18 +410,19 @@ BOOL loaded = NO;
     return 1;
 }
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    return 1;
+    return [pickerarray count];
 }
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return @"title";
+    return [pickerarray objectAtIndex:row];
         
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    NSLog(@"You selected this: ");
+    NSLog(@"You selected this:" );
     [pickerview removeFromSuperview];
     pickerstring = [NSString stringWithFormat:@"%d",row];
-    UIButton *button = (UIButton*)[mainview viewWithTag:7];
+    [pickerarray removeAllObjects];
+      UIButton *button = (UIButton*)[mainview viewWithTag:7];
    /* if ([[pickerarray objectAtIndex:row] count] > 2)
     {
     [button setTitle:[[pickerarray objectAtIndex:row] objectAtIndex:2] forState:UIControlStateNormal];
@@ -617,12 +643,13 @@ BOOL loaded = NO;
          self.form = [[FormModel alloc] initWithParameters:page andVersion:self.version];
         [self.pageArray addObject:self.form];
         [self loadFormGlobalsCount:i];
-         [self drawLabels];
+              [self drawLabels];
          [self drawLines];
          [self drawTextFields];
          [self drawImages];
         [self drawCheckBoxes];
         [self drawComboBoxes];
+        [self.forms addObject:self.form];
          innerScrollView.delegate = self;
          CGFloat scalewidth =  innerScrollView.frame.size.width  /innerScrollView.contentSize.width;
          CGFloat scaleheight =  innerScrollView.frame.size.height /innerScrollView.contentSize.height;
@@ -638,6 +665,7 @@ BOOL loaded = NO;
         i++;
      }
 }
+
 -(void)drawLabels {
     for (LabelModel *labelData in self.form.labels)
     {
@@ -747,17 +775,20 @@ BOOL loaded = NO;
     }
 }
 -(void)drawComboBoxes {
+  int count = 0;
     for (ComboBoxModel *comboboxes in self.form.comboboxes)
-    {int count = 0;
+    {
        // UIPickerView *combobox = [[UIPickerView alloc] init];
         UIButton *combobox = [UIButton buttonWithType:UIButtonTypeRoundedRect];
                 combobox.frame = CGRectIntegral(CGRectMake(roundf([[comboboxes.location objectForKey:@"x"] floatValue] /4 *3), roundf([[comboboxes.location objectForKey:@"y"] floatValue] /4 *3),roundf([[comboboxes.location objectForKey:@"width"] floatValue] /4 *3),roundf([[comboboxes.location objectForKey:@"height"] floatValue] /4 *3)));
         // NSLog(@"expected font: %@, %d, actual font: %@", [fields.font objectForKey:@"fontname"], [[fields.font objectForKey:@"fontsize" ] intValue], field.font);
+        combobox.tag = count;
         [combobox addTarget:self action:@selector(comboBoxClicked:) forControlEvents:UIControlEventTouchUpInside];
         [mainview addSubview:combobox];
         count++;
     }
 }
+
 -(void)loadFormGlobalsCount:(int) count {
     mainview = [[DrawLines alloc] init];
     innerScrollView = [[UIScrollView alloc] init];
@@ -792,12 +823,12 @@ NSArray *titles = [self.doc nodesForXPath:@"/_def_ns:XFDL/_def_ns:globalpage/_de
            mainview.frame = CGRectIntegral(CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height));
        }
        else {
-             mainview.frame = CGRectIntegral(CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width *2+50,[UIScreen mainScreen].bounds.size.height*2+50));
+             mainview.frame = CGRectIntegral(CGRectMake(0,0,730,998));
        }
    }
     if (isiPhone())
     {
-        innerScrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        innerScrollView.frame = CGRectMake(SCREEN_WIDTH*count, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     }
     else
     {
@@ -860,7 +891,7 @@ if (alertView.tag == 5)
     }
     else if (buttonIndex == 2)
     {
-        self.saveFileName = filepath;
+        self.saveFileName = [filepath lastPathComponent];
     }
     if (buttonIndex != 0)
     {
