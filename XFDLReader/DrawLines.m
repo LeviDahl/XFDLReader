@@ -55,7 +55,6 @@
       {
           CGContextAddLineToPoint(context, x /4*3, (y /4*3)+ (pointy /4*3));
       }
-        NSLog(@"line data= %d, %d, %d, %d", x, y, pointx, pointy);
     CGContextStrokePath(context);
    
   }

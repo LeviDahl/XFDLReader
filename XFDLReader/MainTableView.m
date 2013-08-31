@@ -30,7 +30,6 @@
     NSString *oldPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:[[self.sections objectAtIndex:sourceIndexPath.section]stringByAppendingPathComponent:[[filelist objectAtIndex:sourceIndexPath.section] objectAtIndex:sourceIndexPath.row]]];
      NSString *newPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:[[self.sections objectAtIndex:destinationIndexPath.section]stringByAppendingPathComponent:[[filelist objectAtIndex:sourceIndexPath.section] objectAtIndex:sourceIndexPath.row]]];
     [fileManager moveItemAtPath:oldPath toPath:newPath error:&error];
-    NSLog(@"oldPath %@ newpath %@", oldPath, newPath);
     [self setUpTable];
     [self.myTableView reloadData];
 }
@@ -118,7 +117,6 @@
         {
             cell.fileLabel.text = [[filelist objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
             NSString *path = [[docsDirectory stringByAppendingPathComponent:[self.sections objectAtIndex:indexPath.section]]stringByAppendingPathComponent:[[filelist objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
-            NSLog(@"path %@",path);
             NSDictionary *dict = [fileManager attributesOfItemAtPath:path error:NULL];
          
             NSDate *date = [dict objectForKey:NSFileModificationDate];
@@ -146,8 +144,6 @@
                  cell.modifiedLabel.text = @"No modification date";
              
             }
-            
-            NSLog(@"date %@", [dateFormatter stringFromDate:date]);
         }
     }
     return cell;
@@ -367,6 +363,7 @@ else
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
           [self deleteFile:[[paths objectAtIndex:0] stringByAppendingPathComponent:[[self.sections objectAtIndex:indexPath.section]stringByAppendingPathComponent:[[filelist objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]]]];
 }
+
 - (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
 }

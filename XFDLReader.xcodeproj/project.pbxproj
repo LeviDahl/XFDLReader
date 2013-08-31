@@ -13,6 +13,12 @@
 		9B106A781648643E000918F6 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B106A771648643E000918F6 /* libxml2.2.dylib */; };
 		9B106AE31649AA7B000918F6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B106AE21649AA7A000918F6 /* QuartzCore.framework */; };
 		9B106AF11649B509000918F6 /* DrawLines.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B106AF01649B509000918F6 /* DrawLines.m */; };
+		9B1A187617AF197600A062FC /* GDAssets.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9B1A187517AF197600A062FC /* GDAssets.bundle */; };
+		9B1A187817AF198C00A062FC /* GD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1A187717AF198C00A062FC /* GD.framework */; };
+		9B1A187A17AF1A4800A062FC /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1A187917AF1A4800A062FC /* CoreTelephony.framework */; };
+		9B1A187C17AF1AAE00A062FC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1A187B17AF1AAE00A062FC /* SystemConfiguration.framework */; };
+		9B1A187E17AF1AD800A062FC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1A187D17AF1AD800A062FC /* Security.framework */; };
+		9B1A188017AF1AF600A062FC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B1A187F17AF1AF600A062FC /* CFNetwork.framework */; };
 		9B2E083316D3D9CF00BCB7CC /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B2E083116D3D9CF00BCB7CC /* selected.png */; };
 		9B2E083416D3D9CF00BCB7CC /* unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B2E083216D3D9CF00BCB7CC /* unselected.png */; };
 		9B446C4E16EA3CE6007CC713 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B446C4D16EA3CE6007CC713 /* TutorialViewController.m */; };
@@ -110,6 +116,12 @@
 		9B106AE21649AA7A000918F6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9B106AEF1649B509000918F6 /* DrawLines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawLines.h; sourceTree = "<group>"; };
 		9B106AF01649B509000918F6 /* DrawLines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawLines.m; sourceTree = "<group>"; };
+		9B1A187517AF197600A062FC /* GDAssets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GDAssets.bundle; path = "../Good Dynamics/XFDLReader/XFDLReader/GDAssets.bundle"; sourceTree = "<group>"; };
+		9B1A187717AF198C00A062FC /* GD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GD.framework; path = System/Library/Frameworks/GD.framework; sourceTree = SDKROOT; };
+		9B1A187917AF1A4800A062FC /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		9B1A187B17AF1AAE00A062FC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		9B1A187D17AF1AD800A062FC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		9B1A187F17AF1AF600A062FC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9B2E083116D3D9CF00BCB7CC /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		9B2E083216D3D9CF00BCB7CC /* unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselected.png; sourceTree = "<group>"; };
 		9B446C4C16EA3CE6007CC713 /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
@@ -249,6 +261,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B6CCAEE16D2BF88005E482D /* CoreData.framework in Frameworks */,
+				9B1A188017AF1AF600A062FC /* CFNetwork.framework in Frameworks */,
+				9B1A187E17AF1AD800A062FC /* Security.framework in Frameworks */,
+				9B1A187C17AF1AAE00A062FC /* SystemConfiguration.framework in Frameworks */,
+				9B1A187A17AF1A4800A062FC /* CoreTelephony.framework in Frameworks */,
+				9B1A187817AF198C00A062FC /* GD.framework in Frameworks */,
 				9B6CCAEC16D2BF3C005E482D /* ImageIO.framework in Frameworks */,
 				9B9DF862165C378C002EE1B9 /* MessageUI.framework in Frameworks */,
 				9B106AE31649AA7B000918F6 /* QuartzCore.framework in Frameworks */,
@@ -415,6 +432,8 @@
 		9BC5384215FBBDCB003A3BEA = {
 			isa = PBXGroup;
 			children = (
+				9B1A187F17AF1AF600A062FC /* CFNetwork.framework */,
+				9B1A187D17AF1AD800A062FC /* Security.framework */,
 				9BC5385715FBBDCB003A3BEA /* XFDLReader */,
 				9BC5385015FBBDCB003A3BEA /* Frameworks */,
 				9BC5384E15FBBDCB003A3BEA /* Products */,
@@ -432,6 +451,10 @@
 		9BC5385015FBBDCB003A3BEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9B1A187517AF197600A062FC /* GDAssets.bundle */,
+				9B1A187B17AF1AAE00A062FC /* SystemConfiguration.framework */,
+				9B1A187917AF1A4800A062FC /* CoreTelephony.framework */,
+				9B1A187717AF198C00A062FC /* GD.framework */,
 				9B6CCAED16D2BF88005E482D /* CoreData.framework */,
 				9B6CCAEB16D2BF3C005E482D /* ImageIO.framework */,
 				9B9DF861165C378C002EE1B9 /* MessageUI.framework */,
@@ -708,6 +731,7 @@
 				9B2E083316D3D9CF00BCB7CC /* selected.png in Resources */,
 				9B2E083416D3D9CF00BCB7CC /* unselected.png in Resources */,
 				9B75C2BE16D95F85009C3435 /* MainTableViewCell~iphone.xib in Resources */,
+				9B1A187617AF197600A062FC /* GDAssets.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -865,6 +889,10 @@
 				INFOPLIST_FILE = "XFDLReader/XFDLReader-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-lstdc++",
+					"-lz",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -882,6 +910,10 @@
 				INFOPLIST_FILE = "XFDLReader/XFDLReader-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-lstdc++",
+					"-lz",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4ED3DFD3-03E1-4B57-BF23-D0E1332F813D";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4ED3DFD3-03E1-4B57-BF23-D0E1332F813D";

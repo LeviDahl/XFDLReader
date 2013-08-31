@@ -11,6 +11,7 @@
 @implementation TextViewModel
 -(id) initWithParameters:(GDataXMLElement *)element andVersion:(NSString *)version{
     if (self){
+        self.wasTextModified = false;
         self.location = [[NSMutableDictionary alloc] init];
         self.font = [[NSMutableDictionary alloc] init];
             self.name = [element attributeForName:@"sid"].stringValue;
@@ -89,7 +90,6 @@
        
     }
             self.field = [[UITextView alloc] init];
-         NSLog(@"field values: name:%@ value:%@ location:%@", self.name, self.value, self.location);
     }
     return self;
 }

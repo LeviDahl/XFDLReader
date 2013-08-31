@@ -49,7 +49,7 @@ if (self){
             }
             else
             {
-                NSLog(@"wizard labels");
+             //   NSLog(@"wizard labels");
             }
       }
         for (GDataXMLElement *lines in [elements elementsForName:@"line"]) {

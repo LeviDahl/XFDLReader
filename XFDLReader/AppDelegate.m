@@ -12,7 +12,12 @@
 @synthesize window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{  NSFileManager *fileManager = [NSFileManager defaultManager];
+{
+    self.window = [[GDiOS sharedInstance] getWindow];
+    self.good = [GDiOS sharedInstance];
+    _good.delegate = self;
+    started = NO;
+ /*   NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"XFDL"];
 	NSError *error;
@@ -35,7 +40,7 @@
         [data writeToFile:path atomically:YES];
     }
     NSString *PDFPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"PDFs"];
-
+    
     if (![fileManager fileExistsAtPath:PDFPath])	//Does directory already exist?
 	{
 		if (![[NSFileManager defaultManager] createDirectoryAtPath:PDFPath
@@ -45,7 +50,10 @@
 		{
 			NSLog(@"Main Directory Already Exists, No Action = %@", error);
 		}
-	}
+	}*/
+    //Show the Good Authentication UI.
+    [_good authorize];
+
     return YES;
 
 }
@@ -60,7 +68,90 @@
     return YES;
 }
 
+-(void)handleEvent:(GDAppEvent*)anEvent
+{
+    /* Called from _good when events occur, such as system startup. */
+    
+    switch (anEvent.type)
+    {
+		case GDAppEventAuthorized:
+        {
+            [self onauthorized:anEvent];
+			break;
+        }
+		case GDAppEventNotAuthorized:
+        {
+            [self onNotauthorized:anEvent];
+			break;
+        }
+		case GDAppEventRemoteSettingsUpdate:
+        {
+            //A change to application-related configuration or policy settings.
+			break;
+        }
+        case GDAppEventServicesUpdate:
+        {
+            //A change to services-related configuration.
+            break;
+        }
+        case GDAppEventPolicyUpdate:
+        {
+            //A change to one or more application-specific policy settings has been received.
+            break;
+        }
+    }
+}
 
+-(void) onNotauthorized:(GDAppEvent*)anEvent
+{
+    /* Handle the Good Libraries not authorized event. */
+    
+    switch (anEvent.code) {
+        case GDErrorActivationFailed:
+        case GDErrorProvisioningFailed:
+        case GDErrorPushConnectionTimeout: {
+            // application can either handle this and show it's own UI or just call back into
+            // the GD library and the welcome screen will be shown
+            [_good authorize];
+            break;
+        }
+        case GDErrorSecurityError:
+        case GDErrorAppDenied:
+        case GDErrorBlocked:
+        case GDErrorWiped:
+        case GDErrorRemoteLockout:
+        case GDErrorPasswordChangeRequired: {
+            // an condition has occured denying authorization, an application may wish to log these events
+            NSLog(@"onNotauthorized %@", anEvent.message);
+            break;
+        }
+        case GDErrorIdleLockout: {
+            // idle lockout is benign & informational
+            break;
+        }
+        default:
+            NSAssert(false, @"Unhandled not authorized event");
+            break;
+    }
+}
+
+-(void) onauthorized:(GDAppEvent*)anEvent
+{
+    /* Handle the Good Libraries authorized event. */
+    
+    switch (anEvent.code) {
+        case GDErrorNone: {
+            if (!started) {
+                // launch application UI here
+                started = YES;
+            }
+            break;
+        }
+        default:
+            NSAssert(false, @"authorized startup with an error");
+            break;
+    }
+}
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

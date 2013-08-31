@@ -40,7 +40,7 @@ for (GDataXMLElement *ae in [[[element elementsForName:@"itemlocation"] objectAt
             [self.font setObject:[(GDataXMLElement *)[values objectAtIndex:1] stringValue] forKey:@"fontsize"];
             [self.font setObject:[(GDataXMLElement *)[values objectAtIndex:2] stringValue] forKey:@"fonttype"];
         }
-               NSLog(@"checkboxes values: name:%@ value:%@ location:%@", self.name, self.value, self.location);
+              // NSLog(@"checkboxes values: name:%@ value:%@ location:%@", self.name, self.value, self.location);
     }
     else if ([version isEqualToString:@"7.7"]||[version isEqualToString:@"7.6"])
     {
@@ -82,7 +82,7 @@ for (GDataXMLElement *ae in [[[element elementsForName:@"itemlocation"] objectAt
         {
             [self.font setObject:[[[font elementsForName:@"effect"] objectAtIndex:0] stringValue] forKey:@"fonttype"];
         }
-        NSLog(@"checkboxes values: name:%@ value:%@ location:%@", self.name, self.value, self.location);
+      //  NSLog(@"checkboxes values: name:%@ value:%@ location:%@", self.name, self.value, self.location);
     }
     }
     return self;

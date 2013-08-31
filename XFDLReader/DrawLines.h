@@ -30,5 +30,4 @@
 @property (nonatomic) int y;
 @property (nonatomic) int pointx;
 @property (nonatomic) int pointy;
-
 @end

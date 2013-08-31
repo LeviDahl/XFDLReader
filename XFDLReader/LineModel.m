@@ -31,7 +31,6 @@
                 [self.location setObject:[(GDataXMLElement *)[values objectAtIndex:2] stringValue] forKey:@"height"];
             }
         }
-        NSLog(@"line location:%@", self.location);
         }
         else if([version isEqualToString:@"7.7"]|| [version isEqualToString:@"7.6"])
         {

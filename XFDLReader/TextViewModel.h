@@ -15,6 +15,6 @@
 @property (strong, nonatomic) NSMutableDictionary *font;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) UITextView *field;
-
+@property (nonatomic) bool wasTextModified;
 -(id) initWithParameters:(GDataXMLElement *)element andVersion:(NSString *)version;
 @end

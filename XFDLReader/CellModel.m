@@ -30,7 +30,6 @@
         {
             self.group = @"";
         }
-         NSLog(@"cell values: name:%@ value:%@, group: %@", self.name, self.value, self.group);
     }
     return self;
 }

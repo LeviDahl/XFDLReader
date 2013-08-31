@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <GD/GDiOS.h>
 #import "AppDelegate.h"
 
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
+        [GDiOS initialiseWithClassNameConformingToUIApplicationDelegate:@"AppDelegate"];
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }

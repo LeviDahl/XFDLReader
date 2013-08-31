@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>GDLibraryMode</key>
+	<string>GDEnterpriseSimulation</string>
+	<key>GDApplicationVersion</key>
+	<string>1.0.0.0</string>
+	<key>GDApplicationID</key>
+	<string>com.mycompany.example</string>
 	<key>CFBN</key>
 	<string>icon.png</string>
 	<key>CFBundleDevelopmentRegion</key>
@@ -68,6 +74,18 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.levidahlstrom.XFDLReader</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.levidahlstrom.XFDLReader.sc2</string>
+				<string>com.levidahlstrom.XFDLReader.sc</string>
+			</array>
+		</dict>
 	</array>
 </dict>
 </plist>
